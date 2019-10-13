@@ -37,6 +37,7 @@ public class UFFaster implements IUF{
             return;
         }
         //将小树的节点连接到大树的根节点
+        //p=q时，p当根结点 v
         if(sz[pRoot]<sz[qRoot]){
             id[pRoot]=qRoot;
             sz[qRoot]+=sz[pRoot];

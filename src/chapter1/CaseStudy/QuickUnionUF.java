@@ -5,10 +5,10 @@ import stdlib.StdOut;
 /**
  * quick-union 算法
  */
-public class UFBetter implements IUF {
+public class QuickUnionUF implements IUF {
     private int[] id;//分量id
     private int count;//分量数量
-    public UFBetter(int N){
+    public QuickUnionUF(int N){
         count=N;
         id=new int[N];
         for (int i = 0; i < N; i++) {

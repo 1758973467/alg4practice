@@ -5,10 +5,10 @@ import stdlib.StdOut;
 /**
  * quick-find算法
  */
-public class UF implements IUF{
+public class QuickFindUF implements IUF{
     private int[] id;//分量id
     private int count;//分量数量
-    public UF(int N){
+    public QuickFindUF(int N){
         count=N;
         id=new int[N];
         for (int i = 0; i < N; i++) {

@@ -1,8 +1,8 @@
 package TestChapter1;
 
 import chapter1.CaseStudy.IUF;
-import chapter1.CaseStudy.UF;
-import chapter1.CaseStudy.UFBetter;
+import chapter1.CaseStudy.QuickFindUF;
+import chapter1.CaseStudy.QuickUnionUF;
 import chapter1.CaseStudy.UFFaster;
 import org.testng.annotations.Test;
 import stdlib.In;
@@ -15,7 +15,7 @@ public class TestChapter15 {
         In in=new In("test/TestChapter1/largeUF.txt");
         int N= in.readInt();
 
-        IUF uf=new UF(N);
+        IUF uf=new QuickFindUF(N);
         testUFImpl(uf,in);
         //8m 43s
     }
@@ -23,7 +23,7 @@ public class TestChapter15 {
     public void testUFBetter(){
         In in=new In("test/TestChapter1/largeUF.txt");
         int N= in.readInt();
-        IUF uf=new UFBetter(N);
+        IUF uf=new QuickUnionUF(N);
         testUFImpl(uf,in);
         //60 min more
     }
@@ -50,7 +50,22 @@ public class TestChapter15 {
 
     @Test
     public void Test151(){
-        UF uf=new UF(10);
+        QuickFindUF quickFindUf =new QuickFindUF(10);
+        int []pArray={9,3,5,7,2,5,0,4};
+        int []qArray={0,4,8,2,1,7,3,2};
+        for (int i = 0; i < pArray.length; i++) {
+            int p=pArray[i];
+            int q=qArray[i];
+            if(!quickFindUf.connected(p, q)){
+                quickFindUf.union(p, q);
+                StdOut.println(p+" "+q);
+            }
+        }
+    }
+
+    @Test
+    public void test152(){
+        IUF uf=new QuickUnionUF(10);
         int []pArray={9,3,5,7,2,5,0,4};
         int []qArray={0,4,8,2,1,7,3,2};
         for (int i = 0; i < pArray.length; i++) {
@@ -64,8 +79,8 @@ public class TestChapter15 {
     }
 
     @Test
-    public void test152(){
-        IUF uf=new UFBetter(10);
+    public void test153(){
+        IUF uf=new UFFaster(10);
         int []pArray={9,3,5,7,2,5,0,4};
         int []qArray={0,4,8,2,1,7,3,2};
         for (int i = 0; i < pArray.length; i++) {
