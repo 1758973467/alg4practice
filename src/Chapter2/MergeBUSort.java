@@ -11,7 +11,7 @@ public class MergeBUSort extends Example {
         aux=new Comparable[a.length];
         for (int sz = 1; sz < a.length; sz=sz*2) {//sz子数组的大小
             for (int lo = 0; lo <a.length-sz ; lo+=sz*2) {//lo 子数组索引
-                merge(a,lo,lo+sz-1,Math.min(lo+sz+sz-1,a.length-sz));
+                merge(a,lo,lo+sz-1,Math.min(lo+sz+sz-1,a.length-1));
             }
         }
     }

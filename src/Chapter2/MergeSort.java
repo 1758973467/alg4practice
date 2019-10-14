@@ -5,23 +5,27 @@ package Chapter2;
 * */
 public class MergeSort extends Example{
 
-    private Comparable[]aux=null;//归并所需的辅助数组
     @Override
     public void sort(Comparable[] a) {
-        aux=new Comparable[a.length];
-        sort(a,0,a.length-1);
+        //归并所需的辅助数组
+        Comparable[]aux=new Comparable[a.length];
+        sort(a,0,a.length-1,aux);
     }
 
-    private void sort(Comparable[] a, int lo, int hi) {
+    private void sort(Comparable[] a, int lo, int hi,Comparable[]aux) {
         //将 a[lo..hi]排序
         if(lo>=hi)return;
         int mid=(lo+hi)/2;
-        sort(a,lo,mid);//将左半边排序
-        sort(a,mid+1,hi);//将右半边排序
-        merge(a,lo,mid,hi);//归并
+        sort(a,lo,mid,aux);//将左半边排序
+        sort(a,mid+1,hi,aux);//将右半边排序
+        //if a[mid]<=a[mid+1] 使得已经有序的数组变为线性级别
+        if(less(a[mid],a[mid+1])){
+            return;
+        }
+        merge(a,lo,mid,hi,aux);//归并
     }
 
-    private void merge(Comparable[]a,int lo,int mid,int hi){
+    private void merge(Comparable[]a,int lo,int mid,int hi,Comparable[]aux){
         //将a[lo..mid] 和a[mid+1..hi]归并
         int i=lo,j=mid+1;
         //将a[lo..hi]复制到aux[lo..hi]
