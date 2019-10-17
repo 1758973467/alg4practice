@@ -1,6 +1,7 @@
 package TestChapter2;
 
 import Chapter2.Example;
+import Chapter2.Quick3Way;
 import Chapter2.QuickSort;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -20,6 +21,17 @@ public class TestChapter23 {
         example.sort(a);
         Example.show(a);
         Assert.assertTrue(Example.isSorted(a));
+    }
+
+    @Test
+    public void TestQuick3Way(){
+        String[] strs =new String[]{
+                "E","A","S","Y","Q","U","E","S","T","I","O","N"
+        };
+        Example example=new Quick3Way();
+        example.sort(strs);
+        Example.show(strs);
+        Assert.assertTrue(Example.isSorted(strs));
     }
 }
 
