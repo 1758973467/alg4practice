@@ -1,6 +1,6 @@
 package TestChapter1;
 
-import com.company.Matrix;
+import chapter1.Matrix;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

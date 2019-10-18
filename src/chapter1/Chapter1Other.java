@@ -1,57 +1,12 @@
-package com.company;
+package chapter1;
 
-import chapter1.Interval1D;
-import chapter1.Interval2D;
-import chapter1.VisualCounter;
-import stdlib.StdOut;
 import stdlib.StdRandom;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
 
-
-public class Main {
-
-    public static void main(String[] args) {
-	    // write your code here
-        /*
-        double p=0.5;
-        int N=10;
-        StdDraw.setPenColor(StdDraw.GRAY);
-        for (int i = 0; i < N; i++) {
-            StdDraw.circle(0+i*0.05,0+i*0.05,0.05);
-            StdDraw.line(0+i*0.05, 0+i*0.05, 0+0.05*(i+1), 0+0.05*(i+1));
-        }
-        */
-        int N=10;
-
-        Interval2D[]array2d=new Interval2D[N];
-        for (int i = 0; i < array2d.length; i++) {
-            Interval1D xInterval = new Interval1D(StdRandom.uniform(.0,0.2), StdRandom.uniform(.2,1));
-            Interval1D yInterval = new Interval1D(StdRandom.uniform(.0,0.2), StdRandom.uniform(.2,1));
-            array2d[i]=new Interval2D(xInterval, yInterval);
-            array2d[i].draw();
-        }
-        VisualCounter counter = new VisualCounter();
-        for (int i = 0; i < array2d.length; i++) {
-            for (int j = i+1; j < array2d.length; j++) {
-                if(array2d[i].intersects(array2d[j])){
-                    counter.increment();
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            }
-        }
-
-        StdOut.println(counter);
-
-    }
-
+public class Chapter1Other {
     /**
      * 比较输入的三个整形数是否相等，相等 eaual,反之 not equal
      * @param args
@@ -219,6 +174,4 @@ public class Main {
             a[r]=temp;
         }
     }
-
 }
-

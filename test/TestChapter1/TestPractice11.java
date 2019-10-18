@@ -1,7 +1,7 @@
 package TestChapter1;
 
-import com.company.BinarySearch;
-import com.company.Main;
+import chapter1.BinarySearch;
+import chapter1.Chapter1Other;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import stdlib.StdOut;
@@ -33,17 +33,17 @@ public class TestPractice11 {
     }
     @Test
     public void Test113(){
-        Assert.assertEquals(Main.Practice113(new String[]{"1","2","3"}),"not equal");
-        Assert.assertEquals(Main.Practice113(new String[]{"1","1","1"}),"equal");
+        Assert.assertEquals(Chapter1Other.Practice113(new String[]{"1","2","3"}),"not equal");
+        Assert.assertEquals(Chapter1Other.Practice113(new String[]{"1","1","1"}),"equal");
     }
 
     @Test
     public void Test115(){
-        Assert.assertEquals(Main.Practice115(0.5),true);
-        Assert.assertEquals(Main.Practice115(1),true);
-        Assert.assertEquals(Main.Practice115(0),true);
-        Assert.assertEquals(Main.Practice115(-0),true);
-        Assert.assertEquals(Main.Practice115(-0.1),false);
+        Assert.assertEquals(Chapter1Other.Practice115(0.5),true);
+        Assert.assertEquals(Chapter1Other.Practice115(1),true);
+        Assert.assertEquals(Chapter1Other.Practice115(0),true);
+        Assert.assertEquals(Chapter1Other.Practice115(-0),true);
+        Assert.assertEquals(Chapter1Other.Practice115(-0.1),false);
     }
 
     @Test
@@ -137,7 +137,7 @@ public class TestPractice11 {
                 new int[]{2,5},
                 new int[]{3,6}
         };
-        var result=Main.Practice1113(intput);
+        var result=Chapter1Other.Practice1113(intput);
         for (int i = 0; i <result.length ; i++) {
             Assert.assertEquals(result[i],output[i]);
         }
@@ -145,26 +145,26 @@ public class TestPractice11 {
 
     @Test
     public void Test1114(){
-        Assert.assertEquals(Main.Practice1114(9),3);
-        Assert.assertEquals(Main.Practice1114(8),3);
+        Assert.assertEquals(Chapter1Other.Practice1114(9),3);
+        Assert.assertEquals(Chapter1Other.Practice1114(8),3);
     }
 
     @Test
     public void Test1116(){
-        Assert.assertEquals(Main.Practice1116(6),"311361142246");
+        Assert.assertEquals(Chapter1Other.Practice1116(6),"311361142246");
     }
 
     @Test
     public void Test1118(){
-        Assert.assertEquals(Main.Practice1118(2,25),50);
-        Assert.assertEquals(Main.Practice1118(3,11),33);
+        Assert.assertEquals(Chapter1Other.Practice1118(2,25),50);
+        Assert.assertEquals(Chapter1Other.Practice1118(3,11),33);
     }
 
     //@Test
     public void Test1119(){
         int count=0;
         for (int i = 0; i < 50; i++) {
-            Main.Practice1119(i);
+            Chapter1Other.Practice1119(i);
             count++;
         }
     }
@@ -173,13 +173,13 @@ public class TestPractice11 {
     public void Test1119Better(){
         int count=0;
         for (int i = 0; i < 100; i++) {
-            Main.Practice1119Better(i);
+            Chapter1Other.Practice1119Better(i);
             count++;
         }
     }
     @Test
     public void Test1120(){
-        Assert.assertEquals(Main.Practice1120(5),Math.log(5*4*3*2*1));
+        Assert.assertEquals(Chapter1Other.Practice1120(5),Math.log(5*4*3*2*1));
     }
     @Test
     public void Test1122(){
@@ -224,13 +224,13 @@ public class TestPractice11 {
 
     @Test
     public void Test1124(){
-        Assert.assertEquals(Main.Euclid(111,111),111);
-        Assert.assertEquals(Main.Euclid(234,567),9);
+        Assert.assertEquals(Chapter1Other.Euclid(111,111),111);
+        Assert.assertEquals(Chapter1Other.Euclid(234,567),9);
     }
     @Test
     public void Test1127(){
-        Assert.assertEquals(Main.binomial(3,4,0.5),Main.binomial2(3,4,0.5));
-        Assert.assertEquals(Main.binomial(30,40,0.5),Main.binomial2(30,40,0.5));
+        Assert.assertEquals(Chapter1Other.binomial(3,4,0.5),Chapter1Other.binomial2(3,4,0.5));
+        Assert.assertEquals(Chapter1Other.binomial(30,40,0.5),Chapter1Other.binomial2(30,40,0.5));
     }
 
     @Test
@@ -339,7 +339,7 @@ public class TestPractice11 {
             for (int j = 0; j < array.length; j++) {
                 array[j]=j;
             }
-            Main.shuffle(array);
+            Chapter1Other.shuffle(array);
             for (int j = 0; j < array.length; j++) {
                 testResult[j][(int)array[j]]+=1;
             }

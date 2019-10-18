@@ -1,6 +1,4 @@
-package com.company;
-
-import chapter1.Counter;
+package chapter1;
 
 public class BinarySearch {
     public static int rank(int key,int[]a){

@@ -1,7 +1,7 @@
 package TestChapter1;
 
 import chapter1.*;
-import com.company.BinarySearch;
+import chapter1.BinarySearch;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import stdlib.StdIn;
