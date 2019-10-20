@@ -24,9 +24,8 @@ public interface IST<Key,Value> {
      * 从表中删除键Key及其对应的值
      * @param key
      */
-    default void delete(Key key){
-        put(key,null);
-    }
+     void delete(Key key);
+
 
     /**
      * 键key在表中是否有对应的值
