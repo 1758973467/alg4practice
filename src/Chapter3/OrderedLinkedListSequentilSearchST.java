@@ -1,5 +1,7 @@
 package Chapter3;
 
+import java.util.Iterator;
+
 public class OrderedLinkedListSequentilSearchST<Key extends Comparable<Key>,Value> implements
         IOrderKeyST<Key,Value> {
     private class Node{
@@ -34,17 +36,54 @@ public class OrderedLinkedListSequentilSearchST<Key extends Comparable<Key>,Valu
 
     @Override
     public Key floor(Key key) {
-        return null;
+        Node dummpyNode=new Node(null,null,first);
+        Node x=dummpyNode;
+        while (x.next!=null){
+            if(x.next.key.compareTo(key)<=0){
+                x=x.next;
+            }else break;
+        }
+        if(first==null){
+            return null;
+        }
+        //全部小于
+        if(x==null){
+            return max();
+        }else return x.key;
+
     }
 
     @Override
     public Key ceiling(Key key) {
-        return null;
+        Node x=first;
+
+        while (x!=null){
+            if(x.key.compareTo(key)>=0){
+                break;
+            }
+            x=x.next;
+
+        }
+        if(first==null){
+            return null;
+        }
+        //全部小于key
+        if(x==null){
+            return max();
+        }else return x.key;
     }
 
     @Override
     public int rank(Key key) {
-        return 0;
+        Node x=first;
+        int count=0;
+        while (x!=null){
+            if(x.key.compareTo(key)<0){
+                count++;
+                x=x.next;
+            }else break;
+        }
+        return count;
     }
 
     @Override
@@ -60,7 +99,41 @@ public class OrderedLinkedListSequentilSearchST<Key extends Comparable<Key>,Valu
 
     @Override
     public Iterable<Key> keys(Key lo, Key hi) {
-        return null;
+        Node loNode=first;
+        while (loNode!=null){
+            if(loNode.key.compareTo(lo)<0){
+                loNode=loNode.next;
+            }else break;
+        }
+        Node hiNode=first;
+        while (hiNode!=null){
+            if(hiNode.key.compareTo(lo)<0){
+                hiNode=hiNode.next;
+            }else break;
+        }
+
+        Node finalLoNode = loNode;
+        Node finalHiNode = hiNode;
+        return new Iterable<Key>() {
+            @Override
+            public Iterator<Key> iterator() {
+                return new Iterator<Key>() {
+                    private Node lowNode= finalLoNode;
+                    private Node highNode= finalHiNode;
+                    @Override
+                    public boolean hasNext() {
+                        return lowNode !=null&& lowNode !=highNode;
+                    }
+
+                    @Override
+                    public Key next() {
+                        Key key=lowNode.key;
+                        lowNode=lowNode.next;
+                        return key;
+                    }
+                };
+            }
+        };
     }
 
     @Override
@@ -82,19 +155,35 @@ public class OrderedLinkedListSequentilSearchST<Key extends Comparable<Key>,Valu
         }
         Node temp=new Node(key,val,null);
         temp.next=x.next;
-        x.next=x;
+        x.next=temp;
 
         first=dummpyNode.next;
     }
 
     @Override
     public Value get(Key key) {
+        Node x=first;
+        while (x!=null){
+            if(x.key.compareTo(key)==0){
+               return x.val;
+            }
+            x=x.next;
+        }
         return null;
     }
 
     @Override
     public void delete(Key key) {
-
+        Node dummpyNode=new Node(null,null,first);
+        Node x=dummpyNode;
+        while (x.next!=null){
+            if(x.next.key.compareTo(key)==0){
+                x.next=x.next.next;
+                break;
+            }
+            x=x.next;
+        }
+        first=dummpyNode.next;
     }
 
     @Override

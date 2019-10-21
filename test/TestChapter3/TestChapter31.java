@@ -1,9 +1,6 @@
 package TestChapter3;
 
-import Chapter3.BinarySearchST;
-import Chapter3.IOrderKeyST;
-import Chapter3.IST;
-import Chapter3.SequentialSearchST;
+import Chapter3.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import stdlib.In;
@@ -54,11 +51,10 @@ public class TestChapter31 {
         }
         StdOut.println(max+" "+st.get(max));
     }
-    @Test
-    public void TestOrderedST() {
+    public void IOrderKeyST(IOrderKeyST<String, Integer> st) {
         In in = new In("test/TestChapter3/OrderedST.txt");
         String[] strs = in.readAllStrings();
-        IOrderKeyST<String, Integer> st = new BinarySearchST<>(strs.length);
+        //IOrderKeyST<String, Integer> st = new BinarySearchST<>(strs.length);
         for (int i = 0; i < strs.length; i++) {
             st.put(strs[i], i);
         }
@@ -76,4 +72,17 @@ public class TestChapter31 {
         st.delete(strs[0]);
         Assert.assertEquals(st.size(), strs.length - 3);
     }
+    @Test
+    public void TestIOrderKeyST(){
+        IOrderKeyST<String, Integer> st = new OrderedLinkedListSequentilSearchST<>();
+        IOrderKeyST(st);
+        st=new BinarySearchST<String, Integer>(100);
+        IOrderKeyST(st);
+    }
+
+    @Test
+    public void TestFreqCounter(){
+        FrequencyCounter(7,"test/TestChapter3/leipzig1M.txt");
+    }
+
 }

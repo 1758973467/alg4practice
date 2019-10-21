@@ -67,22 +67,22 @@ public class SequentialSearchST<Key,Value> implements IST<Key,Value> {
         return new Iterable<Key>() {
             @Override
             public Iterator<Key> iterator() {
-                return new LinkedListIterator();
+                return new Iterator<Key>() {
+                    private Node current=first;
+                    @Override
+                    public boolean hasNext() {
+                        return current!=null;
+                    }
+
+                    @Override
+                    public Key next() {
+                        Key item=current.key;
+                        current=current.next;
+                        return item;
+                    }
+                };
             }
         };
     }
-    private class LinkedListIterator implements Iterator<Key> {
-        private Node current=first;
-        @Override
-        public boolean hasNext() {
-            return current!=null;
-        }
 
-        @Override
-        public Key next() {
-            Key item=current.key;
-            current=current.next;
-            return item;
-        }
-    }
 }
