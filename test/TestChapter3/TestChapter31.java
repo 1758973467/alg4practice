@@ -29,19 +29,14 @@ public class TestChapter31 {
     public void FrequencyCounter(int minlen,String file){
         In in=new In(file);
         String[]strs=in.readAllStrings();
-        IST<String,Integer>st=new BinarySearchST<>(strs.length);
+        IST<String,Integer>st=new BinarySearchST<>(strs.length+1);
         for (var str :strs){
             String word=str;
             if(word.length()<minlen)continue;
             if(!st.contains(word))st.put(word,1);
             else st.put(word,st.get(word)+1);
         }
-        while (!in.isEmpty()){
-            String word=in.readString();
-            if(word.length()<minlen)continue;
-            if(!st.contains(word))st.put(word,1);
-            else st.put(word,st.get(word)+1);
-        }
+
         String max="";
         st.put(max,0);
         for(var word : st.keys()){
@@ -82,7 +77,7 @@ public class TestChapter31 {
 
     @Test
     public void TestFreqCounter(){
-        FrequencyCounter(7,"test/TestChapter3/leipzig1M.txt");
+        FrequencyCounter(10,"test/TestChapter3/leipzig1M.txt");
     }
 
 }

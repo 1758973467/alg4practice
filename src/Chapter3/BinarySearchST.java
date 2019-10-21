@@ -84,7 +84,7 @@ public class BinarySearchST<Key extends Comparable<Key>,Value> implements IOrder
 
                     @Override
                     public boolean hasNext() {
-                        return current>highIndex;
+                        return current<highIndex;
                     }
 
                     @Override
