@@ -1,5 +1,10 @@
 package Chapter3;
 
+import chapter1.BagQueueStack.LinkedListQueue;
+import chapter1.BagQueueStack.Queue;
+
+import java.util.Iterator;
+
 public class BST<Key extends Comparable<Key>,Value> implements IOrderKeyST<Key,Value> {
     private class Node{
         Key key;
@@ -141,7 +146,25 @@ public class BST<Key extends Comparable<Key>,Value> implements IOrderKeyST<Key,V
 
     @Override
     public Iterable<Key> keys(Key lo, Key hi) {
-        return null;
+        Queue<Key> keyQueue=new LinkedListQueue<>();
+        keys(lo,hi,keyQueue,root);
+        return new Iterable<Key>() {
+            @Override
+            public Iterator<Key> iterator() {
+                return keyQueue.iterator();
+            }
+        };
+    }
+
+    private void keys(Key lo, Key hi, Queue<Key> keyQueue, Node node) {
+        if(node==null)return ;
+        if(node.key.compareTo(lo)>=0&&node.key.compareTo(hi)<=0){
+            keyQueue.enqueue(node.key);
+        }else if(node.key.compareTo(lo)<0){
+            keys(lo,hi,keyQueue,node.right);
+        }else if(node.key.compareTo(hi)>0){
+            keys(lo,hi,keyQueue,node.left);
+        }
     }
 
     @Override

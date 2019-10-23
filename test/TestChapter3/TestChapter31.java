@@ -46,7 +46,7 @@ public class TestChapter31 {
         }
         StdOut.println(max+" "+st.get(max));
     }
-    
+
     private void IOrderKeyST(IOrderKeyST<String, Integer> st) {
         String []files={
                 "test/TestChapter3/UNOrderedST.txt",
