@@ -49,7 +49,7 @@ public class BinarySearchST<Key extends Comparable<Key>,Value> implements IOrder
     public Key ceiling(Key key) {
         int i=rank(key);
         if(i>=N){
-            return keyvalpairs[N-1].getKey();
+            return null;
         }
         return keyvalpairs[i].getKey();
     }

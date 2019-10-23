@@ -69,7 +69,7 @@ public class OrderedLinkedListSequentilSearchST<Key extends Comparable<Key>,Valu
         }
         //全部小于key
         if(x==null){
-            return max();
+            return null;
         }else return x.key;
     }
 
