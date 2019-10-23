@@ -151,7 +151,7 @@ public class OrderedLinkedListSequentilSearchST<Key extends Comparable<Key>,Valu
         while (x.next!=null){
             if(x.next.key.compareTo(key)<0){
                 x=x.next;
-            }
+            }else break;
         }
         Node temp=new Node(key,val,null);
         temp.next=x.next;
