@@ -81,10 +81,14 @@ public class TestChapter31 {
     @Test
     public void TestIOrderKeyST(){
         IOrderKeyST<String, Integer> st = new OrderedLinkedListSequentilSearchST<>();
+        /*
         IOrderKeyST(st);
         st=new BinarySearchST<String, Integer>(100);
         IOrderKeyST(st);
         st=new BST<>();
+        IOrderKeyST(st);
+        */
+        st=new BSTNoRecursion<>();
         IOrderKeyST(st);
     }
 

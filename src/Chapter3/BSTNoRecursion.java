@@ -3,12 +3,10 @@ package Chapter3;
 import chapter1.BagQueueStack.LinkedListQueue;
 import chapter1.BagQueueStack.Queue;
 
-import java.util.Iterator;
-
 /**
  * min,max,
  * get,
- * floor,ceiling,rank,select,,put非递归
+ * rank,select,put非递归
  *
  *
  * @param <Key>
@@ -48,19 +46,74 @@ public class BSTNoRecursion<Key extends Comparable<Key>,Value>implements IOrderK
         return x.key;
     }
 
+
     @Override
     public Key floor(Key key) {
+        Node x=floor(root,key);
+        if(x!=null){
+            return x.key;
+        }
         return null;
+    }
+
+    private Node floor(Node node, Key key) {
+        if(node==null){
+            return null;
+        }
+        int cmp=key.compareTo(node.key);
+        //小于一定在左子树
+        if(cmp<0){
+            return floor(node.left,key);
+        }else if(cmp>0){
+            //key大于,可能存在
+            var x=floor(node.right,key);
+            if(x!=null){
+                return x;
+            }
+        }
+        return node;
     }
 
     @Override
     public Key ceiling(Key key) {
-        return null;
+        Node x=ceiling(root,key);
+        if(x==null){
+            return null;
+        }
+        return x.key;
+    }
+
+    private Node ceiling(Node node, Key key) {
+        if(node==null)return null;
+        int cmp=key.compareTo(node.key);
+        if(cmp>0)return ceiling(node.right,key);
+        else if(cmp<0){
+            Node x=ceiling(node.left,key);
+            if(x!=null){
+                return x;
+            }
+        }
+        return node;
     }
 
     @Override
     public int rank(Key key) {
-        return 0;
+        int i=0;
+        Node x=root;
+        while (x!=null){
+            int cmp=key.compareTo(x.key);
+            if(cmp>0){
+                i+=1+size(x.left);
+                x=x.right;
+            }else if(cmp<0){
+                i+=0;
+                x=x.left;
+            }else {
+                i+=size(x.left);
+                break;
+            }
+        }
+        return i;
     }
 
     @Override
@@ -81,29 +134,44 @@ public class BSTNoRecursion<Key extends Comparable<Key>,Value>implements IOrderK
     @Override
     public Iterable<Key> keys(Key lo, Key hi) {
         Queue<Key> keyQueue=new LinkedListQueue<>();
-        keys(lo,hi,keyQueue,root);
-        return new Iterable<Key>() {
-            @Override
-            public Iterator<Key> iterator() {
-                return keyQueue.iterator();
+        Node node=root;
+        while (node!=null){
+            if(node.key.compareTo(lo)>=0&&node.key.compareTo(hi)<=0){
+                keyQueue.enqueue(node.key);
+            }else if(node.key.compareTo(lo)<0){
+                node=node.right;
+            }else if(node.key.compareTo(hi)>0){
+               node=node.left;
             }
-        };
-    }
-    private void keys(Key lo, Key hi, Queue<Key> keyQueue, Node node) {
-        if(node==null)return ;
-        if(node.key.compareTo(lo)>=0&&node.key.compareTo(hi)<=0){
-            keyQueue.enqueue(node.key);
-        }else if(node.key.compareTo(lo)<0){
-            keys(lo,hi,keyQueue,node.right);
-        }else if(node.key.compareTo(hi)>0){
-            keys(lo,hi,keyQueue,node.left);
         }
+        return () -> keyQueue.iterator();
     }
+
 
     @Override
     public void put(Key key, Value val) {
+        Node z = new Node(key, val,1);
+        if (root == null) {
+            root = z;
+            return;
+        }
 
+        Node parent = null, x = root;
+        while (x != null) {
+            parent = x;
+            int cmp = key.compareTo(x.key);
+            if      (cmp < 0) x = x.left;
+            else if (cmp > 0) x = x.right;
+            else {
+                x.val = val;
+                return;
+            }
+        }
+        int cmp = key.compareTo(parent.key);
+        if (cmp < 0) parent.left  = z;
+        else         parent.right = z;
     }
+
 
     @Override
     public Value get(Key key) {
@@ -121,7 +189,41 @@ public class BSTNoRecursion<Key extends Comparable<Key>,Value>implements IOrderK
 
     @Override
     public void delete(Key key) {
+        if(root==null)return;
+        root=delete(root,key);
+    }
 
+    private Node delete(Node node, Key key) {
+        if(node==null)return null;
+        int cmp=key.compareTo(node.key);
+        if(cmp<0){
+            node.left=delete(node.left,key);
+        }else if(cmp>0){
+            node.right=delete(node.right,key);
+        }else{
+            //found node
+            if(node.left==null)return node.right;
+            if(node.right==null)return node.left;
+            Node x=node.right;
+            while (x.left!=null){
+                x=x.left;
+            }
+            x.left=node.left;
+            x.right=deleteMin(node.right);
+        }
+
+        node.N=size(node.left)+size(node.right)+1;
+        return node;
+    }
+
+    private Node deleteMin(Node node) {
+        if(node==null)return null;
+        if(node.left!=null)node.left=deleteMin(node.left);
+        else{
+            return node.right;
+        }
+        node.N=1+size(node.left)+size(node.right);
+        return node;
     }
 
     @Override
