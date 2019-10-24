@@ -6,7 +6,7 @@ import chapter1.BagQueueStack.Queue;
 /**
  * min,max,
  * get,
- * rank,select,put非递归
+ * rank,select,put,floor,ceiling非递归
  *
  *
  * @param <Key>
@@ -49,51 +49,44 @@ public class BSTNoRecursion<Key extends Comparable<Key>,Value>implements IOrderK
 
     @Override
     public Key floor(Key key) {
-        Node x=floor(root,key);
-        if(x!=null){
-            return x.key;
-        }
-        return null;
-    }
-
-    private Node floor(Node node, Key key) {
-        if(node==null){
-            return null;
-        }
-        int cmp=key.compareTo(node.key);
-        //小于一定在左子树
-        if(cmp<0){
-            return floor(node.left,key);
-        }else if(cmp>0){
+        Node curNode=root,preNode=null;
+        while (curNode!=null){
+            int cmp=key.compareTo(curNode.key);
             //key大于,可能存在
-            var x=floor(node.right,key);
-            if(x!=null){
-                return x;
-            }
+            if(cmp>0){
+                preNode=curNode;
+                curNode=curNode.right;
+                //小于一定在左子树
+            }else if(cmp<0){
+                curNode=curNode.left;
+            }else break;
         }
-        return node;
+        if(curNode==null){
+            if(preNode==null){
+                return null;
+            }else return preNode.key;
+        }else return curNode.key;
     }
 
     @Override
     public Key ceiling(Key key) {
-        Node x=ceiling(root,key);
-        if(x==null){
-            return null;
+        Node curNode=root,preNode=null;
+        while (curNode!=null){
+            int cmp=key.compareTo(curNode.key);
+            //key大于,可能存在
+            if(cmp>0){
+                curNode=curNode.right;
+                //小于一定在左子树
+            }else if(cmp<0){
+                preNode=curNode;
+                curNode=curNode.left;
+            }else break;
         }
-        return x.key;
-    }
-
-    private Node ceiling(Node node, Key key) {
-        if(node==null)return null;
-        int cmp=key.compareTo(node.key);
-        if(cmp>0)return ceiling(node.right,key);
-        else if(cmp<0){
-            Node x=ceiling(node.left,key);
-            if(x!=null){
-                return x;
-            }
-        }
-        return node;
+        if(curNode==null){
+            if(preNode==null){
+                return null;
+            }else return preNode.key;
+        }else return curNode.key;
     }
 
     @Override
