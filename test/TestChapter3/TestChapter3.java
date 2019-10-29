@@ -11,6 +11,8 @@ public class TestChapter3 {
     public void TestIST(){
         IST<String, Integer> st = new SeparateChainingHashST<>();
         IST(st);
+        st=new LinearProbingHashST<>(5);
+        IST(st);
     }
     @Test
     public void TestIOrderKeyST(){
@@ -57,8 +59,6 @@ public class TestChapter3 {
             }
             Assert.assertEquals(st.size(),0);
         }
-
-
     }
 
     private void FrequencyCounter(int minlen, String file){
