@@ -103,7 +103,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements IOrderKe
         if(!isRed(h.left)&&!isRed(h.left.left)){
             h=moveRedLeft(h);
         }
-        h.left=deleteMin(h);
+        h.left=deleteMin(h.left);
         return balance(h);
     }
 

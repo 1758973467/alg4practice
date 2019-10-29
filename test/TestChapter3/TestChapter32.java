@@ -35,9 +35,9 @@ public class TestChapter32 {
             }
             Assert.assertEquals(st.size(),0);
         }
-
-
     }
+
+
     @Test
     public void TestIOrderKeyST(){
         IOrderKeyST<String, Integer> st = new OrderedLinkedListSequentilSearchST<>();
@@ -48,7 +48,7 @@ public class TestChapter32 {
         st=new BST<>();
         IOrderKeyST(st);
         */
-        st=new RedBlackST<>();
+        st=new RedBlackBST<>();
         IOrderKeyST(st);
     }
 }
