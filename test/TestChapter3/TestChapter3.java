@@ -13,6 +13,8 @@ public class TestChapter3 {
         IST(st);
         st=new LinearProbingHashST<>(5);
         IST(st);
+        st=new LinearProbingHashSTDuplicateKey<>(5);
+        IST(st);
     }
     @Test
     public void TestIOrderKeyST(){
@@ -26,6 +28,18 @@ public class TestChapter3 {
         */
         st=new RedBlackBST<>();
         IOrderKeyST(st);
+        st=new BSTDuplicateKey<>();
+        IOrderKeyST(st);
+        st=new RedBlackBSTDuplicateKey<>();
+        IOrderKeyST(st);
+    }
+    @Test
+    public void TestIOrderKeySTDuplicate(){
+        IOrderKeyST<String, Integer> st =null;
+        st=new BSTDuplicateKey<>();
+        IOrderKeySTDuplicate(st);
+        st=new RedBlackBSTDuplicateKey<>();
+        IOrderKeySTDuplicate(st);
     }
 
     @Test
@@ -102,9 +116,51 @@ public class TestChapter3 {
             Assert.assertEquals(st.size("09:15:00", "09:25:00"), 5);
             Assert.assertEquals(st.size(st.max(), st.min()), 0);
             Assert.assertEquals(st.size(st.min(), st.max()), st.size());
+            String min=st.min();
             st.deleteMin();
+            Assert.assertEquals(st.contains(min),false);
+            String max=st.max();
             st.deleteMax();
+            Assert.assertEquals(st.contains(max),false);
             Assert.assertEquals(st.size(), strs.length - 2);
+            for(var key :st.keys()){
+                StdOut.println(key);
+            }
+            while (!st.isEmpty()){
+                st.deleteMax();
+            }
+
+            Assert.assertEquals(st.size(),0);
+        }
+    }
+
+    private void IOrderKeySTDuplicate(IOrderKeyST<String, Integer> st) {
+        String []files={
+                "test/TestChapter3/UNOrderedSTDuplicate.txt",
+                "test/TestChapter3/OrderedSTDuplicate.txt"
+        };
+        for(var file :files){
+            In in = new In(file);
+            String[] strs = in.readAllStrings();
+            for (int i = 0; i < strs.length; i++) {
+                st.put(strs[i], i);
+            }
+            Assert.assertEquals(st.floor("09:05:00"), "09:03:13");
+            Assert.assertEquals(st.floor("08:55:55"), null);
+            Assert.assertEquals(st.floor("09:40:00"), st.max());
+            Assert.assertEquals(st.ceiling("09:30:00"), "09:35:21");
+            Assert.assertEquals(st.ceiling("09:40:00"), null);
+            Assert.assertEquals(st.ceiling("08:55:55"), st.min());
+            //Assert.assertEquals(st.size("09:15:00", "09:25:00"), 5);
+            Assert.assertEquals(st.size(st.max(), st.min()), 0);
+            Assert.assertEquals( st.size(),strs.length);
+            String min=st.min();
+            st.deleteMin();
+            Assert.assertEquals(st.contains(min),false);
+            String max=st.max();
+            st.deleteMax();
+            Assert.assertEquals(st.contains(max),false);
+            //Assert.assertEquals(st.size(), strs.length - 2);
             for(var key :st.keys()){
                 StdOut.println(key);
             }
