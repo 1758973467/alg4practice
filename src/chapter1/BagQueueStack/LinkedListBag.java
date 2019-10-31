@@ -30,6 +30,16 @@ public class LinkedListBag<Item> implements Bag<Item> {
     }
 
     @Override
+    public boolean contains(Item item) {
+        for (Node curNode=first; curNode!=null ;curNode=curNode.next) {
+            if(curNode.item.equals(item)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
     public Iterator<Item> iterator() {
         return new LinkedListIterator();
     }

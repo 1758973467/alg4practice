@@ -1,6 +1,8 @@
 package TestChapter3;
 
 import Chapter3.*;
+import chapter1.BagQueueStack.Bag;
+import chapter1.BagQueueStack.LinkedListBag;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import stdlib.In;
@@ -45,6 +47,75 @@ public class TestChapter3 {
     @Test
     public void TestFreqCounter(){
         FrequencyCounter(10,"test/TestChapter3/leipzig1M.txt");
+    }
+
+    @Test
+    public void TestInvert(){
+        IST<String,Bag<String>>st=null;
+        String []files={
+                "test/TestChapter3/amino.csv",
+        };
+        for(var file :files) {
+            In in=new In(file);
+            st=new LinearProbingHashST<>();
+            while (in.hasNextLine()){
+                String line=in.readLine();
+                String[]tokens=line.split(",");
+                String key=tokens[0];
+                String val=tokens[1];
+                if(!st.contains(key)){
+                    st.put(key,new LinkedListBag<>());
+                }
+                st.get(key).add(val);
+            }
+            var ts=Invert(st);
+            for (var key :ts.keys()){
+                var v=ts.get(key);
+                //ts k-v ==st k-v
+                StdOut.println(key+"------");
+                for (var val:v){
+                    Assert.assertEquals(st.contains(val),true);
+                    Assert.assertEquals(st.get(val).contains(key),true);
+                    StdOut.println(val);
+                }
+                StdOut.println();
+            }
+        }
+    }
+
+    @Test
+    public void TestSparseVector(){
+        //a = [1,0,1,0,3]
+        //b =[-1,0,1,2,0]
+        SparseVector a=new SparseVector();
+        a.put(0,1);
+        a.put(2,1);
+        a.put(4,3);
+
+        SparseVector b=new SparseVector();
+        b.put(0,-1);
+        b.put(2,1);
+        b.put(3,2);
+
+        var c=a.sum(b);
+        Assert.assertEquals(c.get(0),0.0);
+        Assert.assertEquals(c.get(1),0.0);
+        Assert.assertEquals(c.get(2),2.0);
+        Assert.assertEquals(c.get(3),2.0);
+        Assert.assertEquals(c.get(4),3.0);
+    }
+
+    private static IST<String,Bag<String>> Invert(IST<String, Bag<String>>st){
+        IST<String,Bag<String>>ts=new LinearProbingHashST<>();
+        for (String key:st.keys()){
+            for(String item:st.get(key)){
+                if(!ts.contains(item)){
+                    ts.put(item,new LinkedListBag());
+                }
+                ts.get(item).add(key);
+            }
+        }
+        return ts;
     }
 
     private void IST(IST<String,Integer> st){
@@ -171,4 +242,6 @@ public class TestChapter3 {
             Assert.assertEquals(st.size(),0);
         }
     }
+
+
 }

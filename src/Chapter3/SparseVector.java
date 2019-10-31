@@ -29,4 +29,22 @@ public class SparseVector {
         return sum;
     }
 
+    public SparseVector sum(SparseVector other){
+        SparseVector result=new SparseVector();
+       //o(a+b)
+        for(var index:st.keys()){
+            var s=get(index)+other.get(index);
+            if(s!=0){
+                result.put(index,s);
+            }
+        }
+        for (var index:other.st.keys()){
+            var s=get(index)+other.get(index);
+            if(s!=0){
+                result.put(index,s);
+            }
+        }
+        return result;
+    }
+
 }
