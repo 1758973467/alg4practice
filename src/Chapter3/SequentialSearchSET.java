@@ -1,7 +1,12 @@
 package Chapter3;
 
+import java.util.Iterator;
+
 public class SequentialSearchSET<Key> implements ISET<Key> {
     private Node first;//链表首节点
+
+
+
     private class Node{
         Key key;
 
@@ -53,6 +58,25 @@ public class SequentialSearchSET<Key> implements ISET<Key> {
     @Override
     public boolean isEmpty() {
         return first==null;
+    }
+
+    @Override
+    public Iterator<Key> iterator() {
+        return new Iterator<Key>() {
+            private Node curNode=first;
+
+            @Override
+            public boolean hasNext() {
+                return curNode!=null;
+            }
+
+            @Override
+            public Key next() {
+                Key key=curNode.key;
+                curNode=curNode.next;
+                return key;
+            }
+        };
     }
 
 }

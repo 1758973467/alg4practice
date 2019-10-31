@@ -1,5 +1,7 @@
 package Chapter3;
 
+import java.util.Iterator;
+
 /**
  * 无序的集合，采用hash
  * @param <Key>
@@ -25,5 +27,11 @@ public class HashSET<Key> implements ISET<Key> {
     @Override
     public int size() {
         return st.size();
+    }
+
+
+    @Override
+    public Iterator<Key> iterator() {
+        return st.keys().iterator();
     }
 }

@@ -4,7 +4,7 @@ package Chapter3;
  * 集合数据类型
  * @param <Key>
  */
-public interface ISET<Key> {
+public interface ISET<Key> extends Iterable<Key> {
     /**
      * 键Key加入集合
      * @param key

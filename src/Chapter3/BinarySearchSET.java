@@ -128,4 +128,20 @@ public class BinarySearchSET<Key extends Comparable<Key>> implements ISET<Key> {
     public int size() {
         return N;
     }
+
+    @Override
+    public Iterator<Key> iterator() {
+        return new Iterator<Key>() {
+            private int current=0;
+            @Override
+            public boolean hasNext() {
+                return current>N;
+            }
+
+            @Override
+            public Key next() {
+                return keys[current++];
+            }
+        };
+    }
 }

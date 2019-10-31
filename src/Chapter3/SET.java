@@ -1,5 +1,7 @@
 package Chapter3;
 
+import java.util.Iterator;
+
 /**
  * 有序的集合，采用IOrderedST
  * @param <Key>
@@ -46,5 +48,10 @@ public class SET<Key extends Comparable<Key>>implements ISET<Key> {
 
     public Iterable<Key> keys(Key lo,Key hi){
         return st.keys(lo,hi);
+    }
+
+    @Override
+    public Iterator<Key> iterator() {
+        return st.keys(min(),max()).iterator();
     }
 }
