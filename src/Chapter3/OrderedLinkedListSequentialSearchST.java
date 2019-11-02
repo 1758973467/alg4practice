@@ -2,7 +2,7 @@ package Chapter3;
 
 import java.util.Iterator;
 
-public class OrderedLinkedListSequentilSearchST<Key extends Comparable<Key>,Value> implements
+public class OrderedLinkedListSequentialSearchST<Key extends Comparable<Key>,Value> implements
         IOrderKeyST<Key,Value> {
     private class Node{
         Key key;

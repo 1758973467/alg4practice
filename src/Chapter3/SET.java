@@ -28,8 +28,6 @@ public class SET<Key extends Comparable<Key>>implements ISET<Key> {
         return st.size();
     }
 
-    /*other API*/
-
     public Key max(){
         return st.max();
     }

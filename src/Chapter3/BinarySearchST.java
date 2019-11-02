@@ -9,14 +9,14 @@ public class BinarySearchST<Key extends Comparable<Key>,Value> implements IOrder
     public BinarySearchST(int capacity) {
         keyvalpairs=(KeyValuePair<Key,Value>[])new KeyValuePair[capacity];
         for (int i = 0; i < capacity; i++) {
-            keyvalpairs[i]=new KeyValuePair();
+            keyvalpairs[i]=new KeyValuePair<>();
         }
     }
 
     public BinarySearchST(KeyValuePair<Key,Value>[]items) {
         keyvalpairs=(KeyValuePair<Key,Value>[])new KeyValuePair[items.length];
         for (int i = 0; i < items.length; i++) {
-            keyvalpairs[i]=new KeyValuePair();
+            keyvalpairs[i]=new KeyValuePair<>();
         }
         for (var item :items){
             put(item.getKey(),item.getValue());
@@ -74,27 +74,22 @@ public class BinarySearchST<Key extends Comparable<Key>,Value> implements IOrder
 
     @Override
     public Iterable<Key> keys(Key lo, Key hi) {
-        return new Iterable<Key>() {
+        return () -> new Iterator<Key>() {
+            private int loIndex=rank(lo);
+            private int highIndex=rank(hi);
+            private int current=loIndex;
+
             @Override
-            public Iterator<Key> iterator() {
-                return new Iterator<Key>() {
-                    private int loIndex=rank(lo);
-                    private int highIndex=rank(hi);
-                    private int current=loIndex;
-
-                    @Override
-                    public boolean hasNext() {
-                        return current<highIndex;
-                    }
-
-                    @Override
-                    public Key next() {
-                        Key key=keyvalpairs[current++].getKey();
-                        return key;
-                    }
-
-                };
+            public boolean hasNext() {
+                return current<highIndex;
             }
+
+            @Override
+            public Key next() {
+                Key key=keyvalpairs[current++].getKey();
+                return key;
+            }
+
         };
     }
 

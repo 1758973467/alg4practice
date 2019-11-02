@@ -5,8 +5,6 @@ import java.util.Iterator;
 public class SequentialSearchSET<Key> implements ISET<Key> {
     private Node first;//链表首节点
 
-
-
     private class Node{
         Key key;
 
@@ -23,8 +21,6 @@ public class SequentialSearchSET<Key> implements ISET<Key> {
         if(contains(key))return;
         first=new Node(key,first);
     }
-
-
 
     @Override
     public void delete(Key key) {
@@ -62,18 +58,18 @@ public class SequentialSearchSET<Key> implements ISET<Key> {
 
     @Override
     public Iterator<Key> iterator() {
-        return new Iterator<Key>() {
-            private Node curNode=first;
+        return new Iterator<>() {
+            private Node curNode = first;
 
             @Override
             public boolean hasNext() {
-                return curNode!=null;
+                return curNode != null;
             }
 
             @Override
             public Key next() {
-                Key key=curNode.key;
-                curNode=curNode.next;
+                Key key = curNode.key;
+                curNode = curNode.next;
                 return key;
             }
         };

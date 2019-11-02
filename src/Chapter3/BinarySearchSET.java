@@ -68,27 +68,22 @@ public class BinarySearchSET<Key extends Comparable<Key>> implements ISET<Key> {
 
 
     public Iterable<Key> keys(Key lo, Key hi) {
-        return new Iterable<Key>() {
+        return () -> new Iterator<Key>() {
+            private int loIndex=rank(lo);
+            private int highIndex=rank(hi);
+            private int current=loIndex;
+
             @Override
-            public Iterator<Key> iterator() {
-                return new Iterator<Key>() {
-                    private int loIndex=rank(lo);
-                    private int highIndex=rank(hi);
-                    private int current=loIndex;
-
-                    @Override
-                    public boolean hasNext() {
-                        return current<highIndex;
-                    }
-
-                    @Override
-                    public Key next() {
-                        Key key=keys[current++];
-                        return key;
-                    }
-
-                };
+            public boolean hasNext() {
+                return current<highIndex;
             }
+
+            @Override
+            public Key next() {
+                Key key=keys[current++];
+                return key;
+            }
+
         };
     }
 

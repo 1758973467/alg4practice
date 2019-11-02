@@ -8,7 +8,8 @@ import java.util.Iterator;
  */
 public class HashSET<Key> implements ISET<Key> {
 
-    private LinearProbingHashST<Key,Integer> st=new LinearProbingHashST<>(3);
+
+    protected LinearProbingHashST<Key,Integer> st=new LinearProbingHashST<>(3);
     @Override
     public void add(Key key) {
         st.put(key,1);

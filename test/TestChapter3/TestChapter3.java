@@ -20,7 +20,7 @@ public class TestChapter3 {
     }
     @Test
     public void TestIOrderKeyST(){
-        IOrderKeyST<String, Integer> st = new OrderedLinkedListSequentilSearchST<>();
+        IOrderKeyST<String, Integer> st = new OrderedLinkedListSequentialSearchST<>();
         /*
         IOrderKeyST(st);
         st=new BinarySearchST<String, Integer>(100);
@@ -103,6 +103,16 @@ public class TestChapter3 {
         Assert.assertEquals(c.get(2),2.0);
         Assert.assertEquals(c.get(3),2.0);
         Assert.assertEquals(c.get(4),3.0);
+    }
+
+    @Test
+    public void TestMathSet(){
+        MathSET<Integer> a=new MathSET<>(new Integer[]{1,2,3,4});
+        MathSET<Integer> b=new MathSET<>(new Integer[]{3,4,5,6});
+        a.intersect(b);
+        Assert.assertEquals(a.size(),2);
+        a.union(b);
+        Assert.assertEquals(a.size(),4);
     }
 
     private static IST<String,Bag<String>> Invert(IST<String, Bag<String>>st){

@@ -6,6 +6,11 @@ import stdlib.StdOut;
 
 import java.util.NoSuchElementException;
 
+/**
+ * 实现是LLRB,左倾斜的RB树，类比2-3树
+ * @param <Key>
+ * @param <Value>
+ */
 public class RedBlackBST<Key extends Comparable<Key>, Value> implements IOrderKeyST<Key,Value> {
     private static final boolean RED   = true;
     private static final boolean BLACK = false;
@@ -51,7 +56,6 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements IOrderKe
         return get(root, key);
     }
 
-    // value associated with the given key in subtree rooted at x; null if no such key
     private Value get(Node x, Key key) {
         while (x != null) {
             int cmp = key.compareTo(x.key);
@@ -76,10 +80,10 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements IOrderKe
     private Node put(Node h, Key key, Value val) {
         if (h == null) return new Node(key, val, RED, 1);
 
-        int cmp = key.compareTo(h.key);
-        if      (cmp < 0) h.left  = put(h.left,  key, val);
+        int cmp=key.compareTo(h.key);
+        if(cmp < 0) h.left  = put(h.left,  key, val);
         else if (cmp > 0) h.right = put(h.right, key, val);
-        else              h.val   = val;
+        else h.val = val;
 
         // fix-up any right-leaning links
         if (isRed(h.right) && !isRed(h.left))      h = rotateLeft(h);
@@ -110,25 +114,23 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements IOrderKe
 
     /**
      * Removes the largest key and associated value from the symbol table.
-     * 删除最大键的过程与删除最小键的过程类似，但有一点需要注意，树中红色链接都是左斜的。如果最大键在3-结点，不能直接删除，rotateRight(h)处理一下。我们可以在自上向下的过程中将根结点右子树的红链接右斜，然后递归返回时自下向上的修正即可。
+     * 删除最大键的过程与删除最小键的过程类似，但有一点需要注意，树中红色链接都是左斜的。
+     * 如果最大键在3-结点，不能直接删除，rotateRight(h)处理一下。
+     * 我们可以在自上向下的过程中将根结点右子树的红链接右斜，然后递归返回时自下向上的修正即可。
      *
      * @throws NoSuchElementException if the symbol table is empty
      */
     public void deleteMax() {
         if (isEmpty()) throw new NoSuchElementException("BST underflow");
-
         // if both children of root are black, set root to red
         if (!isRed(root.left) && !isRed(root.right))
             root.color = RED;
 
         root = deleteMax(root);
         if (!isEmpty()) root.color = BLACK;
-        // assert check();
     }
 
-    // delete the key-value pair with the maximum key rooted at h
     private Node deleteMax(Node h) {
-
         //h的红链接右斜
         if (isRed(h.left))
             h = rotateRight(h);
@@ -137,16 +139,16 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements IOrderKe
         //h的红链接右斜，右孩子的红链接还是左斜的（如果有）
         if (!isRed(h.right) && !isRed(h.right.left))
             h = moveRedRight(h);
-
         h.right = deleteMax(h.right);
-
         return balance(h);
     }
 
     /**
      * Removes the specified key and its associated value from this symbol table
      * (if the key is in this symbol table).
-     * 在查找路径上进行与删除最小键相同的变换可以保证在查找过程中任意当前结点均不是2-结点。如果被查找的键在树的底部，可以直接删除。如果不在，需要将它与它的后继结点（即它的右子树的最小键）交换，因为是递归调用，删除之后回溯分解产生的不合法的红色链接。
+     * 在查找路径上进行与删除最小键相同的变换可以保证在查找过程中任意当前结点均不是2-结点。
+     * 如果被查找的键在树的底部，可以直接删除。
+     * 如果不在，需要将它与它的后继结点（即它的右子树的最小键）交换，因为是递归调用，删除之后回溯分解产生的不合法的红色链接。
      *
      * @param  key the key
      * @throws IllegalArgumentException if {@code key} is {@code null}
@@ -154,17 +156,13 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements IOrderKe
     public void delete(Key key) {
         if (key == null) throw new IllegalArgumentException("argument to delete() is null");
         if (!contains(key)) return;
-
         // if both children of root are black, set root to red
         if (!isRed(root.left) && !isRed(root.right))
             root.color = RED;
-
         root = delete(root, key);
         if (!isEmpty()) root.color = BLACK;
-        // assert check();
     }
 
-    // delete the key-value pair with the given key rooted at h
     private Node delete(Node h, Key key) {
         if (key.compareTo(h.key) < 0)  {
             if (!isRed(h.left) && !isRed(h.left.left))
@@ -195,13 +193,12 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements IOrderKe
         return balance(h);
     }
 
-    /***************************************************************************
-     *  Red-black tree helper functions.
-     ***************************************************************************/
-
-    // make a left-leaning link lean to the right
+    /**
+     * 右旋
+     * @param h
+     * @return
+     */
     private Node rotateRight(Node h) {
-        // assert (h != null) && isRed(h.left);
         Node x = h.left;
         h.left = x.right;
         x.right = h;
@@ -212,9 +209,12 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements IOrderKe
         return x;
     }
 
-    // make a right-leaning link lean to the left
+    /**
+     * 左旋
+     * @param h
+     * @return
+     */
     private Node rotateLeft(Node h) {
-        // assert (h != null) && isRed(h.right);
         Node x = h.right;
         h.right = x.left;
         x.left = h;
@@ -232,10 +232,8 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements IOrderKe
         h.right.color = !h.right.color;
     }
 
-
     // are black, make h.left or one of its children red.
     private Node moveRedLeft(Node h) {
-
         //融合当前结点，左孩子，右孩子为新的4-结点
         flipColors(h);
         //如果右孩子是3-结点，这个时候需要上述的借键给左孩子
@@ -250,8 +248,6 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements IOrderKe
     // Assuming that h is red and both h.right and h.right.left
     // are black, make h.right or one of its children red.
     private Node moveRedRight(Node h) {
-        // assert (h != null);
-        // assert isRed(h) && !isRed(h.right) && !isRed(h.right.left);
         flipColors(h);
         if (isRed(h.left.left)) {
             h = rotateRight(h);
@@ -271,10 +267,6 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements IOrderKe
     }
 
 
-    /***************************************************************************
-     *  Utility functions.
-     ***************************************************************************/
-
     /**
      * Returns the height of the BST (for debugging).
      * @return the height of the BST (a 1-node tree has height 0)
@@ -282,6 +274,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements IOrderKe
     public int height() {
         return height(root);
     }
+
     private int height(Node x) {
         if (x == null) return -1;
         return 1 + Math.max(height(x.left), height(x.right));
@@ -290,12 +283,12 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements IOrderKe
     /***************************************************************************
      *  Ordered symbol table methods.
      ***************************************************************************/
-
     /**
      * Returns the smallest key in the symbol table.
      * @return the smallest key in the symbol table
      * @throws NoSuchElementException if the symbol table is empty
      */
+    @Override
     public Key min() {
         if (isEmpty()) throw new NoSuchElementException("calls min() with empty symbol table");
         return min(root).key;
@@ -308,11 +301,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements IOrderKe
         else                return min(x.left);
     }
 
-    /**
-     * Returns the largest key in the symbol table.
-     * @return the largest key in the symbol table
-     * @throws NoSuchElementException if the symbol table is empty
-     */
+    @Override
     public Key max() {
         if (isEmpty()) throw new NoSuchElementException("calls max() with empty symbol table");
         return max(root).key;
@@ -326,7 +315,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements IOrderKe
     }
 
 
-
+    @Override
     public Key floor(Key key) {
         if (key == null) throw new IllegalArgumentException("argument to floor() is null");
         if (isEmpty()) throw new NoSuchElementException("calls floor() with empty symbol table");
@@ -345,7 +334,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements IOrderKe
         else           return x;
     }
 
-
+    @Override
     public Key ceiling(Key key) {
         if (key == null) throw new IllegalArgumentException("argument to ceiling() is null");
         if (isEmpty()) throw new NoSuchElementException("calls ceiling() with empty symbol table");
@@ -364,7 +353,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements IOrderKe
         else           return x;
     }
 
-
+    @Override
     public Key select(int k) {
         if (k < 0 || k >= size()) {
             throw new IllegalArgumentException("argument to select() is invalid: " + k);
@@ -375,15 +364,13 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements IOrderKe
 
     // the key of rank k in the subtree rooted at x
     private Node select(Node x, int k) {
-        // assert x != null;
-        // assert k >= 0 && k < size(x);
         int t = size(x.left);
         if      (t > k) return select(x.left,  k);
         else if (t < k) return select(x.right, k-t-1);
         else            return x;
     }
 
-
+    @Override
     public int rank(Key key) {
         if (key == null) throw new IllegalArgumentException("argument to rank() is null");
         return rank(key, root);
@@ -399,7 +386,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements IOrderKe
     }
 
 
-
+    @Override
     public Iterable<Key> keys(Key lo, Key hi) {
         if (lo == null) throw new IllegalArgumentException("first argument to keys() is null");
         if (hi == null) throw new IllegalArgumentException("second argument to keys() is null");
@@ -421,7 +408,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements IOrderKe
         if (cmphi > 0) keys(x.right, queue, lo, hi);
     }
 
-
+    @Override
     public int size(Key lo, Key hi) {
         if (lo == null) throw new IllegalArgumentException("first argument to size() is null");
         if (hi == null) throw new IllegalArgumentException("second argument to size() is null");

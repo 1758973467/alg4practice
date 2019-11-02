@@ -64,23 +64,18 @@ public class SequentialSearchST<Key,Value> implements IST<Key,Value> {
 
     @Override
     public Iterable<Key> keys() {
-        return new Iterable<Key>() {
+        return () -> new Iterator<Key>() {
+            private Node current=first;
             @Override
-            public Iterator<Key> iterator() {
-                return new Iterator<Key>() {
-                    private Node current=first;
-                    @Override
-                    public boolean hasNext() {
-                        return current!=null;
-                    }
+            public boolean hasNext() {
+                return current!=null;
+            }
 
-                    @Override
-                    public Key next() {
-                        Key item=current.key;
-                        current=current.next;
-                        return item;
-                    }
-                };
+            @Override
+            public Key next() {
+                Key item=current.key;
+                current=current.next;
+                return item;
             }
         };
     }

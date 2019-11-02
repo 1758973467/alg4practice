@@ -53,6 +53,7 @@ public class RedBlackBSTDuplicateKey<Key extends Comparable<Key>, Value> impleme
         return size(root);
     }
 
+    @Override
     public Value get(Key key) {
         if (key == null) throw new IllegalArgumentException("argument to get() is null");
         return get(root, key);
@@ -69,6 +70,7 @@ public class RedBlackBSTDuplicateKey<Key extends Comparable<Key>, Value> impleme
         return null;
     }
 
+    @Override
     public void put(Key key, Value val) {
         if (key == null) throw new IllegalArgumentException("first argument to put() is null");
         if (val == null) {
@@ -97,6 +99,7 @@ public class RedBlackBSTDuplicateKey<Key extends Comparable<Key>, Value> impleme
         return h;
     }
 
+    @Override
     public void deleteMin() {
         if (isEmpty()) throw new NoSuchElementException("BST underflow");
         Key minKey=min();
@@ -120,10 +123,13 @@ public class RedBlackBSTDuplicateKey<Key extends Comparable<Key>, Value> impleme
 
     /**
      * Removes the largest key and associated value from the symbol table.
-     * 删除最大键的过程与删除最小键的过程类似，但有一点需要注意，树中红色链接都是左斜的。如果最大键在3-结点，不能直接删除，rotateRight(h)处理一下。我们可以在自上向下的过程中将根结点右子树的红链接右斜，然后递归返回时自下向上的修正即可。
+     * 删除最大键的过程与删除最小键的过程类似，但有一点需要注意，树中红色链接都是左斜的。
+     * 如果最大键在3-结点，不能直接删除，rotateRight(h)处理一下。
+     * 我们可以在自上向下的过程中将根结点右子树的红链接右斜，然后递归返回时自下向上的修正即可。
      *
      * @throws NoSuchElementException if the symbol table is empty
      */
+    @Override
     public void deleteMax() {
         if (isEmpty()) throw new NoSuchElementException("BST underflow");
         Key maxKey=max();
@@ -137,7 +143,6 @@ public class RedBlackBSTDuplicateKey<Key extends Comparable<Key>, Value> impleme
         }
     }
 
-    // delete the key-value pair with the maximum key rooted at h
     private Node deleteMax(Node h) {
         //h的红链接右斜
         if (isRed(h.left))
@@ -147,20 +152,22 @@ public class RedBlackBSTDuplicateKey<Key extends Comparable<Key>, Value> impleme
         //h的红链接右斜，右孩子的红链接还是左斜的（如果有）
         if (!isRed(h.right) && !isRed(h.right.left))
             h = moveRedRight(h);
-
         h.right = deleteMax(h.right);
-
         return balance(h);
     }
 
     /**
      * Removes the specified key and its associated value from this symbol table
      * (if the key is in this symbol table).
-     * 在查找路径上进行与删除最小键相同的变换可以保证在查找过程中任意当前结点均不是2-结点。如果被查找的键在树的底部，可以直接删除。如果不在，需要将它与它的后继结点（即它的右子树的最小键）交换，因为是递归调用，删除之后回溯分解产生的不合法的红色链接。
+     * 在查找路径上进行与删除最小键相同的变换可以保证在查找过程中任意当前结点均不是2-结点。
+     * 如果被查找的键在树的底部，可以直接删除。
+     * 如果不在，需要将它与它的后继结点（即它的右子树的最小键）交换，
+     * 因为是递归调用，删除之后回溯分解产生的不合法的红色链接。
      *
      * @param  key the key
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
+    @Override
     public void delete(Key key) {
         if (key == null) throw new IllegalArgumentException("argument to delete() is null");
         while (contains(key)) {
@@ -173,7 +180,6 @@ public class RedBlackBSTDuplicateKey<Key extends Comparable<Key>, Value> impleme
         }
     }
 
-    // delete the key-value pair with the given key rooted at h
     private Node delete(Node h, Key key) {
         if (key.compareTo(h.key) < 0)  {
             if (!isRed(h.left) && !isRed(h.left.left))
@@ -204,9 +210,6 @@ public class RedBlackBSTDuplicateKey<Key extends Comparable<Key>, Value> impleme
         return balance(h);
     }
 
-    /***************************************************************************
-     *  Red-black tree helper functions.
-     ***************************************************************************/
 
     // make a left-leaning link lean to the right
     private Node rotateRight(Node h) {
@@ -223,7 +226,6 @@ public class RedBlackBSTDuplicateKey<Key extends Comparable<Key>, Value> impleme
 
     // make a right-leaning link lean to the left
     private Node rotateLeft(Node h) {
-        // assert (h != null) && isRed(h.right);
         Node x = h.right;
         h.right = x.left;
         x.left = h;
@@ -244,7 +246,6 @@ public class RedBlackBSTDuplicateKey<Key extends Comparable<Key>, Value> impleme
 
     // are black, make h.left or one of its children red.
     private Node moveRedLeft(Node h) {
-
         //融合当前结点，左孩子，右孩子为新的4-结点
         flipColors(h);
         //如果右孩子是3-结点，这个时候需要上述的借键给左孩子
@@ -259,8 +260,6 @@ public class RedBlackBSTDuplicateKey<Key extends Comparable<Key>, Value> impleme
     // Assuming that h is red and both h.right and h.right.left
     // are black, make h.right or one of its children red.
     private Node moveRedRight(Node h) {
-        // assert (h != null);
-        // assert isRed(h) && !isRed(h.right) && !isRed(h.right.left);
         flipColors(h);
         if (isRed(h.left.left)) {
             h = rotateRight(h);
@@ -305,6 +304,7 @@ public class RedBlackBSTDuplicateKey<Key extends Comparable<Key>, Value> impleme
      * @return the smallest key in the symbol table
      * @throws NoSuchElementException if the symbol table is empty
      */
+    @Override
     public Key min() {
         if (isEmpty()) throw new NoSuchElementException("calls min() with empty symbol table");
         return min(root).key;
@@ -322,6 +322,7 @@ public class RedBlackBSTDuplicateKey<Key extends Comparable<Key>, Value> impleme
      * @return the largest key in the symbol table
      * @throws NoSuchElementException if the symbol table is empty
      */
+    @Override
     public Key max() {
         if (isEmpty()) throw new NoSuchElementException("calls max() with empty symbol table");
         return max(root).key;
@@ -335,7 +336,7 @@ public class RedBlackBSTDuplicateKey<Key extends Comparable<Key>, Value> impleme
     }
 
 
-
+    @Override
     public Key floor(Key key) {
         if (key == null) throw new IllegalArgumentException("argument to floor() is null");
         if (isEmpty()) throw new NoSuchElementException("calls floor() with empty symbol table");
@@ -354,7 +355,7 @@ public class RedBlackBSTDuplicateKey<Key extends Comparable<Key>, Value> impleme
         else           return x;
     }
 
-
+    @Override
     public Key ceiling(Key key) {
         if (key == null) throw new IllegalArgumentException("argument to ceiling() is null");
         if (isEmpty()) throw new NoSuchElementException("calls ceiling() with empty symbol table");
@@ -373,7 +374,7 @@ public class RedBlackBSTDuplicateKey<Key extends Comparable<Key>, Value> impleme
         else           return x;
     }
 
-
+    @Override
     public Key select(int k) {
         if (k < 0 || k >= size()) {
             throw new IllegalArgumentException("argument to select() is invalid: " + k);
@@ -392,7 +393,7 @@ public class RedBlackBSTDuplicateKey<Key extends Comparable<Key>, Value> impleme
         else            return x;
     }
 
-
+    @Override
     public int rank(Key key) {
         if (key == null) throw new IllegalArgumentException("argument to rank() is null");
         return rank(key, root);
@@ -408,7 +409,7 @@ public class RedBlackBSTDuplicateKey<Key extends Comparable<Key>, Value> impleme
     }
 
 
-
+    @Override
     public Iterable<Key> keys(Key lo, Key hi) {
         if (lo == null) throw new IllegalArgumentException("first argument to keys() is null");
         if (hi == null) throw new IllegalArgumentException("second argument to keys() is null");
@@ -430,7 +431,7 @@ public class RedBlackBSTDuplicateKey<Key extends Comparable<Key>, Value> impleme
         if (cmphi > 0) keys(x.right, queue, lo, hi);
     }
 
-
+    @Override
     public int size(Key lo, Key hi) {
         if (lo == null) throw new IllegalArgumentException("first argument to size() is null");
         if (hi == null) throw new IllegalArgumentException("second argument to size() is null");

@@ -150,19 +150,19 @@ public class BSTNoRecursion<Key extends Comparable<Key>,Value>implements IOrderK
         }
 
         Node parent = null, x = root;
-        while (x != null) {
-            parent = x;
-            int cmp = key.compareTo(x.key);
-            if      (cmp < 0) x = x.left;
-            else if (cmp > 0) x = x.right;
+        while (x!=null){
+            parent=x;
+            int cmp=key.compareTo(x.key);
+            if(cmp<0)x=x.left;
+            else if(cmp>0)x=x.right;
             else {
-                x.val = val;
+                x.val=val;
                 return;
             }
         }
-        int cmp = key.compareTo(parent.key);
-        if (cmp < 0) parent.left  = z;
-        else         parent.right = z;
+        int cmp=key.compareTo(parent.key);
+        if(cmp<0)parent.left=z;
+        else parent.right=z;
     }
 
 
