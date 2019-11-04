@@ -19,7 +19,7 @@ public interface ISearch {
     public static  void main(String []args){
         IGraph g=new Graph(new In(args[0]));
         int s=Integer.parseInt(args[1]);
-        DepthFirstSearchSearch search=new DepthFirstSearchSearch(g,s);
+        DepthFirstSearch search=new DepthFirstSearch(g,s);
         for (int v = 0; v < g.V(); v++) {
             if(search.marked(v)){
                 StdOut.print(v+" ");

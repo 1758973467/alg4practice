@@ -10,6 +10,7 @@ public class DepthFirstSearchPaths implements IPaths{
     private boolean marked[];//这个顶点调用过dfs了
     private int edgeTo[];//从起点到一个顶点的已知路径上的最后一个顶点
     private final int s;//起点
+    private int[]distTo;
     /**
      * 在G中找出所有起点为s的路径
      * @param G
@@ -19,6 +20,7 @@ public class DepthFirstSearchPaths implements IPaths{
         this.s=s;
         marked=new boolean[G.V()];
         edgeTo=new int[G.V()];
+        distTo=new int[G.V()];
         dfs(G,s);
     }
 
@@ -27,6 +29,7 @@ public class DepthFirstSearchPaths implements IPaths{
         for (int w:g.adj(v)){
             if(!marked[w]){
                 edgeTo[w]=v;
+                distTo[w]=distTo[v]+1;
                 dfs(g,w);
             }
         }
@@ -46,6 +49,11 @@ public class DepthFirstSearchPaths implements IPaths{
         }
         path.push(s);
         return path;
+    }
+
+    @Override
+    public int distTo(int v) {
+        return distTo[v];
     }
 
 

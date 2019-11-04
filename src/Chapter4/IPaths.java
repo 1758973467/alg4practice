@@ -17,5 +17,12 @@ public interface IPaths {
      */
     Iterable<Integer> pathTo(int v);
 
+    /**
+     * 返回从起点到给定的顶点的最短路径长度
+     * o(n)
+     * @param v
+     * @return
+     */
+    int distTo(int v);
 
 }

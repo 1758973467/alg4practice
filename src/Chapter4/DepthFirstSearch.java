@@ -1,10 +1,10 @@
 package Chapter4;
 
 
-public class DepthFirstSearchSearch implements ISearch {
+public class DepthFirstSearch implements ISearch {
     private boolean marked[];
     private int count;
-    public DepthFirstSearchSearch(IGraph G, int s) {
+    public DepthFirstSearch(IGraph G, int s) {
         marked=new boolean[G.V()];
         dfs(G,s);
     }

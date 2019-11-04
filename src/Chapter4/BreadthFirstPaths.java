@@ -7,10 +7,12 @@ public class BreadthFirstPaths implements IPaths {
     private boolean []marked;
     private int []edgeTo;
     private final int s;
+    private int []distTo;
     public BreadthFirstPaths(IGraph g,int s){
         this.s=s;
         marked=new boolean[g.V()];
         edgeTo=new int[g.V()];
+        distTo=new int[g.V()];
         bfs(g,s);
     }
 
@@ -24,6 +26,7 @@ public class BreadthFirstPaths implements IPaths {
                 if(!marked[w]){
                     edgeTo[w]=v;
                     marked[w]=true;
+                    distTo[w]=distTo[v]+1;
                     queue.enqueue(w);
                 }
             }
@@ -38,5 +41,10 @@ public class BreadthFirstPaths implements IPaths {
     @Override
     public Iterable<Integer> pathTo(int v) {
         return null;
+    }
+
+    @Override
+    public int distTo(int v) {
+        return distTo[v];
     }
 }
