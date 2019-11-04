@@ -1,7 +1,9 @@
 package Chapter4;
 
 import chapter1.BagQueueStack.LinkedListQueue;
+import chapter1.BagQueueStack.LinkedListStack;
 import chapter1.BagQueueStack.Queue;
+import chapter1.BagQueueStack.Stack;
 
 public class BreadthFirstPaths implements IPaths {
     private boolean []marked;
@@ -35,12 +37,18 @@ public class BreadthFirstPaths implements IPaths {
 
     @Override
     public boolean hasPathTo(int v) {
-        return false;
+        return marked[v];
     }
 
     @Override
     public Iterable<Integer> pathTo(int v) {
-        return null;
+        if(!hasPathTo(v)) return null;
+        Stack<Integer>stack= new LinkedListStack();
+        for(int w=v;w!=s;w=edgeTo[w]){
+            stack.push(w);
+        }
+        stack.push(s);
+        return stack;
     }
 
     @Override

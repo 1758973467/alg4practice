@@ -18,7 +18,7 @@ public class DepthFirstSearch implements ISearch {
         marked[s]=true;
         count++;
         for (int w:g.adj(s)){
-            if(!marked[s]){
+            if(!marked[w]){
                 dfs(g,w);
             }
         }

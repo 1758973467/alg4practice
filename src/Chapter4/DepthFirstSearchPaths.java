@@ -42,7 +42,7 @@ public class DepthFirstSearchPaths implements IPaths{
 
     @Override
     public Iterable<Integer> pathTo(int v){
-        if(hasPathTo(v))return null;
+        if(!hasPathTo(v))return null;
         Stack<Integer>path= new LinkedListStack<Integer>();
         for(int w=v;w!=s;w=edgeTo[w]){
             path.push(w);

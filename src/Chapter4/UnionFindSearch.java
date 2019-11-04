@@ -3,6 +3,9 @@ package Chapter4;
 import chapter1.CaseStudy.IUF;
 import chapter1.CaseStudy.UFFaster;
 
+/**
+ * 加权quick-union 算法
+ */
 public class UnionFindSearch implements ISearch {
 
     private IUF ufFaster;
@@ -21,7 +24,7 @@ public class UnionFindSearch implements ISearch {
         }
 
         for (int i = 0; i < g.V(); i++) {
-            if(i!=s&&ufFaster.connected(i,s)){
+            if(ufFaster.connected(i,s)){
                 count++;
             }
         }
