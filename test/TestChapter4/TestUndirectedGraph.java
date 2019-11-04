@@ -6,6 +6,10 @@ import org.testng.annotations.Test;
 import stdlib.In;
 import stdlib.StdOut;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Scanner;
+
 public class TestUndirectedGraph {
 
     @Test
@@ -79,5 +83,34 @@ public class TestUndirectedGraph {
         Assert.assertEquals(GraphUtil.degree(g,6),2);
         Assert.assertEquals(GraphUtil.numberOfSelfLoops(g),0);
     }
+
+    @Test
+    public void TestGraphNoParallelLineAndSelfLoop() throws FileNotFoundException {
+        Scanner scanner=new Scanner(new FileReader("test/TestChapter4/tinyGadj.txt"));
+        IGraph g=new GraphRestrict(scanner);
+        g.addEdge(0,6);
+        g.addEdge(9,10);
+        scanner.close();
+        Assert.assertEquals(g.V(),13);
+        Assert.assertEquals(g.E(),13);
+    }
+
+    @Test
+    public void TestGraphCtorAdj()throws FileNotFoundException{
+        Scanner scanner=new Scanner(new FileReader("test/TestChapter4/tinyGadj.txt"));
+        IGraph g=new GraphRestrict(scanner);
+        scanner.close();
+        Assert.assertEquals(g.V(),13);
+        Assert.assertEquals(g.E(),13);
+        StdOut.println(g);
+        int[]fourV={6,5,3};
+        int i=0;
+        for(int w:g.adj(4)){
+            Assert.assertEquals(w,fourV[i++]);
+        }
+
+    }
+
+
 
 }

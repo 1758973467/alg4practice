@@ -3,7 +3,6 @@ package Chapter4;
 import chapter1.BagQueueStack.Bag;
 import chapter1.BagQueueStack.LinkedListBag;
 import stdlib.In;
-import stdlib.StdIn;
 
 import java.lang.reflect.Array;
 import java.util.Scanner;
@@ -50,14 +49,14 @@ public class GraphRestrict implements IGraph{
     public GraphRestrict(Scanner scanner){
         this(scanner.nextInt());
         int E=scanner.nextInt();
-        for (int i = 0; i < E; i++) {
+        scanner.nextLine();
+        while (scanner.hasNextLine()){
             String[] vals=scanner.nextLine().split(" ");
             int v=Integer.parseInt(vals[0]);
-            for (int j = vals.length-1; j >1 ; --j) {
-                addEdge(v,Integer.parseInt(vals[j]));
+            for (int i = 1; i < vals.length; i++) {
+                addEdge(v,Integer.parseInt(vals[i]));
             }
         }
-
     }
 
     /**
