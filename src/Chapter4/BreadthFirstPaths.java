@@ -19,9 +19,12 @@ public class BreadthFirstPaths implements IPaths {
     }
 
     private void bfs(IGraph g, int s) {
+        for (int v = 0; v < g.V(); v++)
+            distTo[v] = Integer.MAX_VALUE;
         Queue<Integer>queue=new LinkedListQueue<>();
         queue.enqueue(s);
         marked[s]=true;
+        distTo[s]=0;
         while (!queue.isEmpty()){
             int v=queue.dequeue();
             for (int w:g.adj(v)){

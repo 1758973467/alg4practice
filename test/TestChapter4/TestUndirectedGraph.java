@@ -111,6 +111,21 @@ public class TestUndirectedGraph {
 
     }
 
+    @Test
+    public void TestGraphProperties() throws FileNotFoundException {
+        IGraph g=new GraphRestrict(new In("test/TestChapter4/connectG.txt"));
+
+        GraphProperties properties=new GraphProperties(g);
+        for (int i = 0; i < g.V(); i++) {
+            StdOut.print(properties.eccentricity(i)+" ");
+        }
+        StdOut.println();
+        StdOut.println(properties.diameter());
+        StdOut.println(properties.radius());
+
+        StdOut.println(properties.center());
+    }
+
 
 
 }
