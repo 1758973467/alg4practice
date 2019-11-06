@@ -25,6 +25,10 @@ public class Cycle {
         // 因为是先dfs遍历，必定先访问节点
         marked[v]=true;
         for(int w:g.adj(v)){
+            //check自环和平行边
+            if(w==v){//自环
+                hasCycle=true;
+            }
             if(!marked[w]){
                 dfs(g,w,v);
             }else if(w!=u){

@@ -128,11 +128,24 @@ public class TestUndirectedGraph {
 
     @Test
     public void TestCycle(){
+        //简单图
         IGraph g=new Graph(new In("test/TestChapter4/tinyGex2.txt"));
         Cycle cycle=new Cycle(g);
-        StdOut.print(cycle.hasCycle());
+        Assert.assertTrue(cycle.hasCycle());
+        //check自环
+        g=new Graph(new In("test/TestChapter4/tinyGex2SelfLoop.txt"));
+        cycle=new Cycle(g);
+        Assert.assertTrue(cycle.hasCycle());
+        //check平行边
+        g=new Graph(new In("test/TestChapter4/tinyGex2ParallelLine.txt"));
+        cycle=new Cycle(g);
+        Assert.assertTrue(cycle.hasCycle());
     }
 
-
-
+    @Test
+    public void TestTwoColor(){
+        IGraph g=new Graph(new In("test/TestChapter4/tinyGex2.txt"));
+        TwoColor twoColor=new TwoColor(g);
+       Assert.assertEquals(twoColor.IsBitpartite(),false);
+    }
 }
