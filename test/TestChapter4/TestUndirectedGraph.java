@@ -126,6 +126,13 @@ public class TestUndirectedGraph {
         StdOut.println(properties.center());
     }
 
+    @Test
+    public void TestCycle(){
+        IGraph g=new Graph(new In("test/TestChapter4/tinyGex2.txt"));
+        Cycle cycle=new Cycle(g);
+        StdOut.print(cycle.hasCycle());
+    }
+
 
 
 }
