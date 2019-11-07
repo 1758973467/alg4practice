@@ -1,12 +1,14 @@
-package Chapter4;
+package Chapter4.UnDirectGraph;
 
+import Chapter4.IGraph;
+import Chapter4.IPaths;
 import chapter1.BagQueueStack.LinkedListStack;
 import chapter1.BagQueueStack.Stack;
 
 /**
  * dfs
  */
-public class DepthFirstSearchPaths implements IPaths{
+public class DepthFirstSearchPaths implements IPaths {
     private boolean marked[];//这个顶点调用过dfs了
     private int edgeTo[];//从起点到一个顶点的已知路径上的最后一个顶点
     private final int s;//起点

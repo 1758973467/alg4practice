@@ -1,5 +1,7 @@
-package Chapter4;
+package Chapter4.UnDirectGraph;
 
+import Chapter4.IGraph;
+import Chapter4.ISearch;
 import chapter1.CaseStudy.IUF;
 import chapter1.CaseStudy.UFFaster;
 
@@ -11,7 +13,7 @@ public class UnionFindSearch implements ISearch {
     private IUF ufFaster;
     private final int s;
     private int count;//与s连通的分量数
-    public UnionFindSearch(IGraph g,int s) {
+    public UnionFindSearch(IGraph g, int s) {
         this.s=s;
 
         ufFaster=new UFFaster(g.V());

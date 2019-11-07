@@ -1,4 +1,4 @@
-package Chapter4;
+package Chapter4.UnDirectGraph;
 
 import stdlib.StdIn;
 import stdlib.StdOut;

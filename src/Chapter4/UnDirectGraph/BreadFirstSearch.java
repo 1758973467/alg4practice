@@ -1,5 +1,7 @@
-package Chapter4;
+package Chapter4.UnDirectGraph;
 
+import Chapter4.IGraph;
+import Chapter4.ISearch;
 import chapter1.BagQueueStack.LinkedListQueue;
 import chapter1.BagQueueStack.Queue;
 

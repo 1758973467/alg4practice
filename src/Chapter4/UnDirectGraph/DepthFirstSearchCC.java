@@ -1,4 +1,7 @@
-package Chapter4;
+package Chapter4.UnDirectGraph;
+
+import Chapter4.ICC;
+import Chapter4.IGraph;
 
 public class DepthFirstSearchCC implements ICC {
     private boolean marked[];

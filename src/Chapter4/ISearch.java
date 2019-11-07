@@ -1,5 +1,7 @@
 package Chapter4;
 
+import Chapter4.UnDirectGraph.DepthFirstSearch;
+import Chapter4.UnDirectGraph.Graph;
 import stdlib.In;
 import stdlib.StdOut;
 

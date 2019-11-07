@@ -1,7 +1,9 @@
-package Chapter4;
+package Chapter4.UnDirectGraph;
+
+import Chapter4.IGraph;
 
 public class GraphUtil {
-    public static int degree(IGraph G,int v){
+    public static int degree(IGraph G, int v){
         int degree=0;
         for (int w:G.adj(v)){
             degree++;

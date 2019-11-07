@@ -1,5 +1,6 @@
-package Chapter4;
+package Chapter4.UnDirectGraph;
 
+import Chapter4.IGraph;
 import chapter1.BagQueueStack.Bag;
 import chapter1.BagQueueStack.LinkedListBag;
 import stdlib.In;
@@ -11,7 +12,7 @@ import java.util.Scanner;
  * 无向图-邻接表实现
  * 不允许含有平行边和自环
  */
-public class GraphRestrict implements IGraph{
+public class GraphRestrict implements IGraph {
     private final int V;//顶点数目
     private int E;//边的数目
     private Bag<Integer>[]adj;//邻接表

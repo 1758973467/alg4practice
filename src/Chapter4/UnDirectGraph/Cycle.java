@@ -1,4 +1,6 @@
-package Chapter4;
+package Chapter4.UnDirectGraph;
+
+import Chapter4.IGraph;
 
 /**
  * 判断简单图G是否是无环图

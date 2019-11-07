@@ -1,4 +1,7 @@
-package Chapter4;
+package Chapter4.UnDirectGraph;
+
+import Chapter4.IGraph;
+import Chapter4.IPaths;
 
 import java.util.Arrays;
 

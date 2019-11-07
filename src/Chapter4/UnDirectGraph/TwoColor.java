@@ -1,4 +1,6 @@
-package Chapter4;
+package Chapter4.UnDirectGraph;
+
+import Chapter4.IGraph;
 
 /**
  * 判断图是否是二分图

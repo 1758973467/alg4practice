@@ -1,4 +1,4 @@
-package Chapter4;
+package Chapter4.UnDirectGraph;
 
 import Chapter3.IST;
 import Chapter3.LinearProbingHashST;

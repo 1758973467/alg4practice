@@ -1,5 +1,8 @@
-package Chapter4;
+package Chapter4.UnDirectGraph;
 
+
+import Chapter4.IGraph;
+import Chapter4.ISearch;
 
 public class DepthFirstSearch implements ISearch {
     private boolean marked[];

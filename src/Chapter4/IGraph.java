@@ -14,19 +14,19 @@ public interface IGraph {
      * 顶点数
      * @return
      */
-    public int V();
+    int V();
 
     /**
      * 边数
      * @return
      */
-    public int E();
+    int E();
     /**
      * 向图中添加一条边v-w
      * @param v
      * @param w
      */
-    public void addEdge(int v,int w);
+    void addEdge(int v,int w);
     /**
      * 和v相邻的所有顶点
      * @param v
