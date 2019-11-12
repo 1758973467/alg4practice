@@ -100,21 +100,11 @@ public class GraphRestrict implements IGraph {
      * @return
      */
     private boolean containsParallelEdgeAndSelfLoop(int v, int w) {
-        for (int w1:adj[v]){
-            //有
-            if(w1==w||w1==v){
-                return true;
-            }
-        }
-        return false;
+        if(v==w||adj[v].contains(w))return true;
+        else return false;
     }
 
-    /**
-     * 是否含有v-w边
-     * @param v
-     * @param w
-     * @return
-     */
+    @Override
     public boolean hasEdge(int v,int w){
         return adj[v].contains(w);
     }

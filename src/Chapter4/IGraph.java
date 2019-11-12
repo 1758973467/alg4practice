@@ -27,6 +27,15 @@ public interface IGraph {
      * @param w
      */
     void addEdge(int v,int w);
+
+    /**
+     * 是否含有v-w边
+     * @param v
+     * @param w
+     * @return
+     */
+    boolean hasEdge(int v,int w);
+
     /**
      * 和v相邻的所有顶点
      * @param v

@@ -8,32 +8,30 @@ import stdlib.In;
 
 import java.lang.reflect.Array;
 
-public class Digraph implements IDigraph {
+public class DigraphStrict implements IDigraph {
     private final int V;
     private int E;
-    private Bag<Integer> adj[];
+    private Bag<Integer>adj[];
 
-    public Digraph(int v) {
-        V = v;
+    public DigraphStrict(int v) {
+        this.V=v;
         this.E=0;
-        adj= (Bag<Integer>[]) Array.newInstance(LinkedListBag.class,V);
+        adj=(Bag<Integer>[]) Array.newInstance(LinkedListBag.class,V);
         for (int i = 0; i < V; i++) {
             adj[i]=new LinkedListBag<>();
         }
     }
 
-
-
-    public Digraph(Digraph digraph) {
-        this(digraph.V());
-        for (int v = 0; v < digraph.V(); v++) {
-            for(int w:digraph.adj(v)){
+    public DigraphStrict(DigraphStrict digraphStrict) {
+        this(digraphStrict.V());
+        for (int v = 0; v < digraphStrict.V(); v++) {
+            for(int w:digraphStrict.adj(v)){
                 addEdge(v,w);
             }
         }
     }
 
-    public Digraph(In in) {
+    public DigraphStrict(In in) {
         this(in.readInt());
         int E=in.readInt();
         for (int i = 0; i < E; i++) {
@@ -45,14 +43,13 @@ public class Digraph implements IDigraph {
 
     @Override
     public IDigraph reverse() {
-        IDigraph R=new Digraph(V);
-        for (int v = 0; v < V; v++) {
+        DigraphStrict reverseGraph=new DigraphStrict(V());
+        for (int v = 0; v < V(); v++) {
             for (int w:adj(v)){
-                R.addEdge(w,v);
+                reverseGraph.addEdge(w,v);
             }
         }
-
-        return R;
+        return reverseGraph;
     }
 
     @Override
@@ -67,8 +64,20 @@ public class Digraph implements IDigraph {
 
     @Override
     public void addEdge(int v, int w) {
+        if (containsParallelEdgeAndSelfLoop(v, w)) return;
         adj[v].add(w);
         E++;
+    }
+
+    /**
+     * 判断是否存在平行边和自环
+     * @param v
+     * @param w
+     * @return
+     */
+    private boolean containsParallelEdgeAndSelfLoop(int v, int w) {
+        if(v==w||adj[v].contains(w))return true;
+        else return false;
     }
 
     @Override

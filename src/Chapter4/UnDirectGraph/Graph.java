@@ -60,6 +60,11 @@ public class Graph implements IGraph {
     }
 
     @Override
+    public boolean hasEdge(int v,int w){
+        return adj[v].contains(w);
+    }
+
+    @Override
     public Iterable<Integer> adj(int v) {
         return adj[v];
     }
