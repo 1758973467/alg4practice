@@ -2,6 +2,7 @@ package Chapter4.WeightedUnDirectedGraph;
 
 import chapter1.BagQueueStack.Bag;
 import chapter1.BagQueueStack.LinkedListBag;
+import stdlib.In;
 
 import java.lang.reflect.Array;
 
@@ -18,6 +19,17 @@ public class EdgeWeightedGraph implements IEdgeWeightedGraph{
         }
     }
 
+    public EdgeWeightedGraph(In in) {
+        this(in.readInt());
+        int E=in.readInt();
+        for (int i = 0; i < E; i++) {
+            int v=in.readInt();
+            int w=in.readInt();
+            double weight=in.readDouble();
+            WeightedEdge edge=new WeightedEdge(v,w,weight);
+            addEdge(edge);
+        }
+    }
 
 
     @Override

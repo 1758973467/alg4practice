@@ -8,9 +8,9 @@ public class LazyPrimeMST implements IMST {
     private boolean marked[];//最小生成树顶点
     private Queue<WeightedEdge> mst;//最小生成树边
     private MinPQ<WeightedEdge> pq;//横切边(包括失效的边)
-
+    private double weight;
     public LazyPrimeMST(IEdgeWeightedGraph G) {
-        pq=new MinPQ<>(0);
+        pq=new MinPQ<>(G.E());
         marked=new boolean[G.V()];
         mst=new LinkedListQueue<>();
         visit(G,0);//假设G是连通的
@@ -18,7 +18,9 @@ public class LazyPrimeMST implements IMST {
             WeightedEdge e=pq.delMin();
             int v=e.either();
             int w=e.other(v);
+            if(marked[v]&&marked[w])continue;
             mst.enqueue(e);
+            weight+=e.weight();
             if(!marked[v])visit(G,v);
             if(!marked[w])visit(G,w);
         }
@@ -40,6 +42,6 @@ public class LazyPrimeMST implements IMST {
 
     @Override
     public double weight() {
-        return 0;
+        return weight;
     }
 }
