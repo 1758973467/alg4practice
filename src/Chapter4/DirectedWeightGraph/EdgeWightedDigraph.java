@@ -2,6 +2,7 @@ package Chapter4.DirectedWeightGraph;
 
 import chapter1.BagQueueStack.Bag;
 import chapter1.BagQueueStack.LinkedListBag;
+import stdlib.In;
 
 import java.lang.reflect.Array;
 
@@ -18,6 +19,19 @@ public class EdgeWightedDigraph implements IEdgeWeightedDigraph {
             adj[i]=new LinkedListBag<>();
         }
     }
+
+    public EdgeWightedDigraph(In in) {
+        this(in.readInt());
+        int E=in.readInt();
+        for (int i = 0; i < E; i++) {
+            int v=in.readInt();
+            int w=in.readInt();
+            double weight=in.readDouble();
+            DirectedEdge edge=new DirectedEdge(v,w,weight);
+            addEdge(edge);
+        }
+    }
+
     @Override
     public int V() {
         return V;
