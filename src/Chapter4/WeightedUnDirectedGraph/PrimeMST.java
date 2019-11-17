@@ -8,10 +8,11 @@ import java.util.Arrays;
 
 public class PrimeMST implements IMST {
     private boolean marked[];//最小生成树顶点
-    private WeightedEdge[]edgeTo;
-    private double[]distTo;
+    private WeightedEdge[]edgeTo;//距离树最近的点
+    private double[]distTo;//distTo[w]=edgeTo[w].weight()
 
-    private IndexMinPQ<Double> pq;//横切边(包括失效的边)
+    private IndexMinPQ<Double> pq;//有效的横切边
+    private double weight;//权重
 
     public PrimeMST(IEdgeWeightedGraph G) {
         marked=new boolean[G.V()];
@@ -27,8 +28,9 @@ public class PrimeMST implements IMST {
 
         while (!pq.isEmpty()){
             visit(G,pq.delMin());//假设G是连通的
-
         }
+
+        weight= Arrays.stream(distTo).sum();
     }
 
     private void visit(IEdgeWeightedGraph g, int v) {
@@ -60,6 +62,6 @@ public class PrimeMST implements IMST {
 
     @Override
     public double weight() {
-        return Arrays.stream(distTo).sum();
+        return weight;
     }
 }

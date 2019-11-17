@@ -8,7 +8,7 @@ public class LazyPrimeMST implements IMST {
     private boolean marked[];//最小生成树顶点
     private Queue<WeightedEdge> mst;//最小生成树边
     private MinPQ<WeightedEdge> pq;//横切边(包括失效的边)
-    private double weight;
+    private double weight;//最小生成树权重
     public LazyPrimeMST(IEdgeWeightedGraph G) {
         pq=new MinPQ<>(G.E());
         marked=new boolean[G.V()];

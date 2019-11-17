@@ -11,7 +11,7 @@ public interface IMST {
     Iterable<WeightedEdge> edges();
 
     /**
-     * 最小生成树高度
+     * 最小生成树权重
      * @return
      */
     double weight();
