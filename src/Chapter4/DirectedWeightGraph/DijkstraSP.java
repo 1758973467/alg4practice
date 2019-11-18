@@ -1,6 +1,8 @@
 package Chapter4.DirectedWeightGraph;
 
 import Chapter2.IndexMinPQ;
+import chapter1.BagQueueStack.LinkedListStack;
+import chapter1.BagQueueStack.Stack;
 
 public class DijkstraSP implements ISP {
     private DirectedEdge[]edgeTo;
@@ -39,16 +41,21 @@ public class DijkstraSP implements ISP {
 
     @Override
     public double distTo(int v) {
-        return 0;
+        return distTo[v];
     }
 
     @Override
     public boolean hasPathTo(int v) {
-        return false;
+        return distTo[v]!=Double.POSITIVE_INFINITY;
     }
 
     @Override
     public Iterable<DirectedEdge> pathTo(int v) {
-        return null;
+        Stack<DirectedEdge>edges=new LinkedListStack<>();
+        while (edgeTo[v]!=null){
+            edges.push(edgeTo[v]);
+            v=edgeTo[v].to();
+        }
+        return edges;
     }
 }
