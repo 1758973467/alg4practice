@@ -46,16 +46,16 @@ public class DijkstraSP implements ISP {
 
     @Override
     public boolean hasPathTo(int v) {
-        return distTo[v]!=Double.POSITIVE_INFINITY;
+        return distTo[v]<Double.POSITIVE_INFINITY;
     }
 
     @Override
     public Iterable<DirectedEdge> pathTo(int v) {
-        Stack<DirectedEdge>edges=new LinkedListStack<>();
+        Stack<DirectedEdge>paths=new LinkedListStack<>();
         while (edgeTo[v]!=null){
-            edges.push(edgeTo[v]);
-            v=edgeTo[v].to();
+            paths.push(edgeTo[v]);
+            v=edgeTo[v].from();
         }
-        return edges;
+        return paths;
     }
 }

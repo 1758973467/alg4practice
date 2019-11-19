@@ -1,5 +1,7 @@
 package Chapter4.DirectedGraph;
 
+import Chapter4.DirectedWeightGraph.DirectedEdge;
+import Chapter4.DirectedWeightGraph.IEdgeWeightedDigraph;
 import Chapter4.IDigraph;
 import chapter1.BagQueueStack.LinkedListQueue;
 import chapter1.BagQueueStack.LinkedListStack;
@@ -25,6 +27,19 @@ public class DepthFirstOrder {
         }
     }
 
+    public DepthFirstOrder(IEdgeWeightedDigraph G) {
+        marked=new boolean[G.V()];
+        pre=new LinkedListQueue<>();
+        post=new LinkedListQueue<>();
+        reversePost=new LinkedListStack<>();
+
+        for (int v = 0; v < G.V(); v++) {
+            if(!marked[v]){
+                dfs(G,v);
+            }
+        }
+    }
+
     private void dfs(IDigraph g, int v) {
         marked[v]=true;
         pre.enqueue(v);
@@ -37,6 +52,17 @@ public class DepthFirstOrder {
         reversePost.push(v);
     }
 
+    private void dfs(IEdgeWeightedDigraph g, int v) {
+        marked[v]=true;
+        pre.enqueue(v);
+        for (DirectedEdge w:g.adj(v)){
+            if(!marked[w.from()]){
+                dfs(g,w.to());
+            }
+        }
+        post.enqueue(v);
+        reversePost.push(v);
+    }
     public Iterable<Integer>pre(){
         return pre;
     }

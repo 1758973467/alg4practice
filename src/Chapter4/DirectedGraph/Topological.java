@@ -1,5 +1,7 @@
 package Chapter4.DirectedGraph;
 
+import Chapter4.DirectedWeightGraph.EdgeWeightedDirectedCycle;
+import Chapter4.DirectedWeightGraph.IEdgeWeightedDigraph;
 import Chapter4.IDigraph;
 
 /**
@@ -18,6 +20,14 @@ public class Topological {
 
     }
 
+    public Topological(IEdgeWeightedDigraph g) {
+        EdgeWeightedDirectedCycle finder=new EdgeWeightedDirectedCycle (g);
+        if(!finder.hasCycle()){
+            DepthFirstOrder dfs=new DepthFirstOrder(g);
+            order=dfs.reversePost();
+        }
+    }
+
 
     /**
      * G是否是有向无环图
@@ -33,5 +43,9 @@ public class Topological {
      */
     public Iterable<Integer>order(){
         return order;
+    }
+
+    public boolean hasOrder() {
+        return order!=null;
     }
 }
