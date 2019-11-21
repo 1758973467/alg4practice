@@ -6,18 +6,17 @@ import Chapter4.IDigraph;
 
 /**
  * 拓扑排序
- * 有向图的逆后序遍历
+ * 有向无环图的逆后序遍历
  */
 public class Topological {
 
     private Iterable<Integer>order;//顶点的拓扑排序
     public Topological(IDigraph G) {
-        DirectedCycle cycleFinder=new DirectedCycle(G);
-        if(!cycleFinder.hasCycle()){
+        DirectedCycle finder=new DirectedCycle(G);
+        if(!finder.hasCycle()){
             DepthFirstOrder dfs=new DepthFirstOrder(G);
             order=dfs.reversePost();
         }
-
     }
 
     public Topological(IEdgeWeightedDigraph g) {

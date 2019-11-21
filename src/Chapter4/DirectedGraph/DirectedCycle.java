@@ -32,7 +32,7 @@ public class DirectedCycle {
                 dfs(g,w);
             }else if(onStack[w]){
                 cycle=new LinkedListStack<>();
-                for (int x = 0; x !=w; x=edgeTo[x]) {
+                for (int x = v; x !=w; x=edgeTo[x]) {
                     cycle.push(x);
                 }
                 cycle.push(w);

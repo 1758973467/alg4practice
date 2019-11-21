@@ -55,9 +55,9 @@ public class DepthFirstOrder {
     private void dfs(IEdgeWeightedDigraph g, int v) {
         marked[v]=true;
         pre.enqueue(v);
-        for (DirectedEdge w:g.adj(v)){
-            if(!marked[w.from()]){
-                dfs(g,w.to());
+        for (DirectedEdge edge:g.adj(v)){
+            if(!marked[edge.to()]){
+                dfs(g,edge.to());
             }
         }
         post.enqueue(v);

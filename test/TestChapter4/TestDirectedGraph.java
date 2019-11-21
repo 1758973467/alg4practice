@@ -88,6 +88,15 @@ public class TestDirectedGraph {
         Assert.assertEquals(g.E(),16);
     }
 
-  
+    @Test
+    public void testTopological(){
+        In in =new In("test/TestChapter4/tinyDGex2.txt");
+        IDigraph g=new Digraph(in);
+        Topological topological=new Topological(g);
+
+        for (var e:topological.order()){
+            System.out.println(e);
+        }
+    }
 
 }

@@ -4,7 +4,10 @@ import Chapter4.DirectedGraph.Topological;
 import chapter1.BagQueueStack.LinkedListStack;
 import chapter1.BagQueueStack.Stack;
 
-
+/**
+ * 无环加权有向图的SP
+ * 比Dijkstra算法更快
+ */
 public class AcyclicSP implements ISP {
     private double[]distTo;
     private DirectedEdge[]edgeTo;
@@ -23,6 +26,7 @@ public class AcyclicSP implements ISP {
             throw new IllegalArgumentException("Digraph is not acyclic");
         }
         for(int v:topological.order()){
+            System.out.println(v);
             for (DirectedEdge e:g.adj(v)){
                 relax(e);
             }
