@@ -121,7 +121,7 @@ public class TestWightedDirectedGraph {
     public void testNegativeSP(){
         IEdgeWeightedDigraph g=new EdgeWightedDigraph(new In("test/TestChapter4/tinyEWDn.txt"));
         int s=0;
-        ISP sp=new DijkstraSP(g,s);
+        ISP sp=new BellmanFordSingleSP(g,s);
         for (int t = 0; t < g.V(); t++) {
             StdOut.print(s+" to "+t);
             StdOut.printf(" (%4.2f):",sp.distTo(t));
@@ -138,7 +138,7 @@ public class TestWightedDirectedGraph {
     public void testNegativeCycleSP(){
         IEdgeWeightedDigraph g=new EdgeWightedDigraph(new In("test/TestChapter4/tinyEWDnc.txt"));
         int s=0;
-        BellmanFordSP sp=new BellmanFordSP(g,s);
+        BellmanFordSingleSP sp=new BellmanFordSingleSP(g,s);
         if(sp.hasNegativeCycle()){
             for (var edge:sp.negativeCycle()){
                 StdOut.print(edge+" ");

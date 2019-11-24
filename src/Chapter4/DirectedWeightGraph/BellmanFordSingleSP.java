@@ -1,36 +1,29 @@
 package Chapter4.DirectedWeightGraph;
 
-import chapter1.BagQueueStack.LinkedListQueue;
 import chapter1.BagQueueStack.LinkedListStack;
-import chapter1.BagQueueStack.Queue;
 import chapter1.BagQueueStack.Stack;
 
 /**
- * 使用队列优化减少正常情况下的不必要计算
+ * 原始版本的算法
+ * O(VE)
  */
-public class BellmanFordSP implements ISP {
+public class BellmanFordSingleSP implements ISP{
     private double[]distTo;//从起点到某个顶点的路径长度
     private DirectedEdge[]edgeTo;//从起点到某个顶点的最后一条边
-    private boolean[]onQ;//该顶点是否存在于队列中
-    private Queue<Integer>queue;//正在被放松的顶点
     private int cost;//relax()调用的次数
     private Iterable<DirectedEdge>cycle;//edgeTo中是否由父权重的环
-
-    public BellmanFordSP(IEdgeWeightedDigraph G,int s) {
+    public BellmanFordSingleSP(IEdgeWeightedDigraph G,int s) {
         distTo=new double[G.V()];
         edgeTo=new DirectedEdge[G.V()];
-        onQ=new boolean[G.V()];
-        queue=new LinkedListQueue<>();
         for (int i = 0; i < G.V(); i++) {
             distTo[i]=Double.POSITIVE_INFINITY;
         }
+        //
         distTo[s]=0d;
-        queue.enqueue(s);
-        onQ[s]=true;
-        while (!queue.isEmpty()&&!this.hasNegativeCycle()){
-            int v=queue.dequeue();
-            onQ[v]=false;
-            relax(G,v);
+        for(int pass=0;pass<G.V();++pass){
+            for(int v=0;v<G.V();++v){
+                relax(G,v);
+            }
         }
     }
 
@@ -40,10 +33,6 @@ public class BellmanFordSP implements ISP {
             if(distTo[w]>distTo[v]+e.weight()){
                 distTo[w]=distTo[v]+e.weight();
                 edgeTo[w]=e;
-                if(!onQ[w]){
-                    queue.enqueue(w);
-                    onQ[w]=true;
-                }
             }
             if(cost++%g.V()==0){
                 findNegativeCycle();
@@ -69,7 +58,6 @@ public class BellmanFordSP implements ISP {
     public Iterable<DirectedEdge>negativeCycle(){
         return cycle;
     }
-
     @Override
     public double distTo(int v) {
         return distTo[v];
