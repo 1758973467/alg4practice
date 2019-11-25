@@ -23,7 +23,7 @@ public class TestStringSort {
 
     @Test
     public void testLSDFixableSort(){
-        In in=new In("test/TestChapter5/words3.txt");
+        In in=new In("test/TestChapter5/shells.txt");
         String[]a=in.readAllStrings();
 
         LSD.sort(a);
