@@ -3,6 +3,8 @@ package Chapter5;
 import chapter1.BagQueueStack.LinkedListQueue;
 import chapter1.BagQueueStack.Queue;
 
+import java.lang.reflect.Array;
+
 /**
  * 基于单词查找树的符号表
  * @param <Value>
@@ -11,7 +13,7 @@ public class TrieST<Value> implements IStringST<Value> {
     private static int R=256;
     private Node root;
     private class Node{
-        private Node[] next;
+        private Node[] next= (Node[])Array.newInstance(Node.class,R);
         private Value val;
     }
 

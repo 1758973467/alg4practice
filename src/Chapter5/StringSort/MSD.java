@@ -6,7 +6,6 @@ package Chapter5.StringSort;
  */
 public class MSD {
     private static int R=256;
-    private static final int M=15;
     private static String[]aux;
     private static int charAt(String s,int d){
         if(d<s.length()){
@@ -22,7 +21,7 @@ public class MSD {
     }
 
     private static void sort(String[] a, int lo, int hi, int d) {
-
+        if(lo>=hi)return;
         int []count=new int[R+2];
         for (int i = lo; i <=hi; i++) {
             count[charAt(a[i],d)+2]++;
