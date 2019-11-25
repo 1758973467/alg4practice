@@ -1,5 +1,9 @@
-package Chapter5;
+package Chapter5.ST;
 
+/**
+ * 不接受重复键，空键
+ * @param <Value>
+ */
 public interface IStringST<Value> {
     /**
      * 向表中插入键值对，值为null,则删除key

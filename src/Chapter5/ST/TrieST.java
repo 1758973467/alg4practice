@@ -1,4 +1,4 @@
-package Chapter5;
+package Chapter5.ST;
 
 import chapter1.BagQueueStack.LinkedListQueue;
 import chapter1.BagQueueStack.Queue;
