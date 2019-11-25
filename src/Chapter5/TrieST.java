@@ -17,7 +17,8 @@ public class TrieST<Value> implements IStringST<Value> {
 
     @Override
     public void put(String key, Value val) {
-        root=put(root,key,val,0);
+        if (val==null) delete(key);
+        else root=put(root, key, val, 0);
     }
 
     private Node put(Node x, String key, Value val, int d) {
