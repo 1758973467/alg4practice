@@ -330,7 +330,7 @@ public class TestPractice11 {
 
     @Test
     public void Test1137(){
-        int N=50000;//shuffle count
+        int N=10;//shuffle count
         int M=10;//数组长度
         long[][]testResult=new long[M][M];
 
