@@ -4,6 +4,7 @@ import chapter1.BagQueueStack.LinkedListQueue;
 import chapter1.BagQueueStack.Queue;
 
 import java.lang.reflect.Array;
+import java.util.Arrays;
 
 /**
  * 基于单词查找树的符号表
@@ -15,6 +16,14 @@ public class TrieST<Value> implements IStringST<Value> {
     private class Node{
         private Node[] next= (Node[])Array.newInstance(Node.class,R);
         private Value val;
+
+        @Override
+        public String toString() {
+            return "Node{" +
+                    "next=" + Arrays.toString(next) +
+                    ", val=" + val +
+                    '}';
+        }
     }
 
     @Override
@@ -135,5 +144,12 @@ public class TrieST<Value> implements IStringST<Value> {
     @Override
     public Iterable<String> keys() {
         return keysWithPrefix("");
+    }
+
+    @Override
+    public String toString() {
+        return "TrieST{" +
+                "root=" + root +
+                '}';
     }
 }

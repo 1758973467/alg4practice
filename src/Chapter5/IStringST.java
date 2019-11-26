@@ -68,6 +68,6 @@ public interface IStringST<Value> {
      * @return
      */
     default boolean isEmpty(){
-        return size()!=0;
+        return size()==0;
     }
 }
