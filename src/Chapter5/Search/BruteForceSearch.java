@@ -1,4 +1,4 @@
-package Chapter5;
+package Chapter5.Search;
 
 public class BruteForceSearch implements ISubStringSearch{
     @Override

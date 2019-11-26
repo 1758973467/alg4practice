@@ -1,4 +1,4 @@
-package Chapter5;
+package Chapter5.Search;
 
 public class BoyerMooreSearch implements ISubStringSearch {
     private int[]right;

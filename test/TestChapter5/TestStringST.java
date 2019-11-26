@@ -1,7 +1,8 @@
 package TestChapter5;
 
-import Chapter5.IStringST;
-import Chapter5.TrieST;
+
+import Chapter5.ST.IStringST;
+import Chapter5.ST.TrieST;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import stdlib.In;

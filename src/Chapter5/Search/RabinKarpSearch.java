@@ -1,4 +1,4 @@
-package Chapter5;
+package Chapter5.Search;
 
 
 import java.math.BigInteger;
