@@ -23,7 +23,7 @@ public class TriangleST<Value>implements IStringST<Value> {
         }
         if(!contains(key))n++;
         else if(val==null)n--;
-        else root=put(root, key, val, 0);
+        root=put(root, key, val, 0);
     }
 
     private Node put(Node x, String key, Value val, int d) {

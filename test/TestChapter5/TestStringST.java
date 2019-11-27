@@ -2,6 +2,7 @@ package TestChapter5;
 
 
 import Chapter5.ST.IStringST;
+import Chapter5.ST.TriangleST;
 import Chapter5.ST.TrieST;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -42,8 +43,23 @@ public class TestStringST {
             stringST.delete(key);
         }
         Assert.assertEquals(stringST.isEmpty(),true);
+    }
 
+    @Test
+    public void testTriangleST(){
+        String[]a={
+                "no","is","th","ti","fo","al","go","pe","to","co","to","th","ai","of","th","pa"
+        };
+        IStringST<Integer> stringST=new TriangleST<>();
+        for (int i = 0; i < a.length; i++) {
+            stringST.put(a[i],i);
+        }
 
+        Assert.assertEquals(stringST.size(),13);
+        System.out.println("------------keys");
+        for (var key:stringST.keys()) {
+            System.out.println(key);
+        }
 
     }
 
