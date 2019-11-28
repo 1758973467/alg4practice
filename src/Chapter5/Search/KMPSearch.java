@@ -10,11 +10,11 @@ public class KMPSearch implements ISubStringSearch{
     }
 
     private void CtorDfa(String pattern) {
-        int M=pattern.length();
+        int m=pattern.length();
         int R=256;
-        dfa=new int[R][M];
-        dfa[pattern.charAt(0)][0]=-1;
-        for (int X=0,j = 1; j <M ; j++) {
+        dfa=new int[R][m];
+        dfa[pattern.charAt(0)][0]=1;
+        for (int X=0,j = 1; j <m ; j++) {
             for (int c = 0; c < R; c++) {
                 dfa[c][j]=dfa[c][X];
             }
