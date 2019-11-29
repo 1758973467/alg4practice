@@ -9,7 +9,9 @@ public class TestSubString {
         String pattern="AAAAB";
         String txt="AAAAAAAAAB";
         Assert.assertEquals(subStringSearch.search(pattern,txt),5);
-
+        pattern="DABCDABDE";
+        txt="BBC ABCDAB ABCDABCDABDE";
+        Assert.assertEquals(subStringSearch.search(pattern,txt),14);
     }
     @Test
     public void testBruteForce(){
@@ -24,6 +26,12 @@ public class TestSubString {
     }
 
     @Test
+    public void testKMPlus(){
+        ISubStringSearch subStringSearch=new KMPPlusSearch();
+        testSubStringSearch(subStringSearch );
+    }
+
+    @Test
     public void testBoyerMoore(){
         ISubStringSearch subStringSearch=new BoyerMooreSearch();
         testSubStringSearch(subStringSearch );
@@ -34,4 +42,6 @@ public class TestSubString {
         ISubStringSearch subStringSearch=new RabinKarpSearch();
         testSubStringSearch(subStringSearch );
     }
+
+
 }

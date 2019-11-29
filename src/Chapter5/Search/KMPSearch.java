@@ -1,5 +1,8 @@
 package Chapter5.Search;
 
+/**
+ * 算法第四版实现，看不懂
+ */
 public class KMPSearch implements ISubStringSearch{
 
     private int[][]dfa;
