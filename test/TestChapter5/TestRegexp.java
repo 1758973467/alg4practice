@@ -7,12 +7,15 @@ import org.testng.annotations.Test;
 public class TestRegexp {
     @Test
     public void testNFA(){
-        NFA nfa=new NFA("..oo..oo");
+        NFA nfa=new NFA("..oo..oo.");
         Assert.assertEquals(nfa.recognizes("bloodroot"),true);
         Assert.assertEquals(nfa.recognizes("nincompoophood"),false);
+    }
 
-        nfa=new NFA("[^aeiou]{6}");
-        Assert.assertEquals(nfa.recognizes("rhythm"),true);
-        Assert.assertEquals(nfa.recognizes("rhythms"),false);
+    @Test
+    public void testExample(){
+        //error
+        NFA nfa=new NFA("(((A|B)*|CD*|EFG)*)*");
+        Assert.assertEquals(nfa.recognizes("AAACDEFGEFG"),true);
     }
 }

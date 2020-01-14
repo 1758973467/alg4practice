@@ -2,7 +2,6 @@ package Chapter5.RegExp;
 
 import stdlib.StdIn;
 import stdlib.StdOut;
-
 public class Grep {
     private Grep(){}
 
