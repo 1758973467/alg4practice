@@ -2,16 +2,16 @@ package Chapter5.DataCompress;
 
 import Chapter5.ST.IStringST;
 import Chapter5.ST.TrieST;
-import stdlib.BinaryStdIn;
-import stdlib.BinaryStdOut;
+import stdlib.BinaryIn;
+import stdlib.BinaryOut;
 
 public class LZW {
     private static final int R=256;
     private static final int L=4096;
     private static final int W=12;
 
-    private static void compress(){
-        String input = BinaryStdIn.readString();
+    public static void compress(BinaryIn binaryin, BinaryOut binaryOut){
+        String input = binaryin.readString();
         IStringST<Integer> st = new TrieST<Integer>();
         for (int i = 0; i < R; i++)
             st.put("" + (char) i, i);
@@ -19,17 +19,17 @@ public class LZW {
 
         while (input.length() > 0) {
             String s = st.longestPrefixOf(input);  // Find max prefix match s.
-            BinaryStdOut.write(st.get(s), W);      // Print s's encoding.
+            binaryOut.write(st.get(s), W);      // Print s's encoding.
             int t = s.length();
             if (t < input.length() && code < L)    // Add s to symbol table.
                 st.put(input.substring(0, t + 1), code++);
             input = input.substring(t);            // Scan past s in input.
         }
-        BinaryStdOut.write(R, W);
-        BinaryStdOut.close();
+        binaryOut.write(R, W);
+        binaryOut.close();
     }
 
-    public static void expand() {
+    public static void expand(BinaryIn binaryin, BinaryOut binaryOut) {
         String[] st = new String[L];
         int i; // next available codeword value
 
@@ -38,19 +38,19 @@ public class LZW {
             st[i] = "" + (char) i;
         st[i++] = "";                        // (unused) lookahead for EOF
 
-        int codeword = BinaryStdIn.readInt(W);
+        int codeword = binaryin.readInt(W);
         if (codeword == R) return;           // expanded message is empty string
         String val = st[codeword];
 
         while (true) {
-            BinaryStdOut.write(val);
-            codeword = BinaryStdIn.readInt(W);
+            binaryOut.write(val);
+            codeword = binaryin.readInt(W);
             if (codeword == R) break;
             String s = st[codeword];
             if (i == codeword) s = val + val.charAt(0);   // special case hack
             if (i < L) st[i++] = val + s.charAt(0);
             val = s;
         }
-        BinaryStdOut.close();
+        binaryOut.close();
     }
 }
